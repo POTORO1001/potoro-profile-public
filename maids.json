@@ -1,0 +1,245 @@
+[
+  {
+    "name": "みお",
+    "birthday": "7/1",
+    "generation": "初代",
+    "likes": [
+      "ばぶちゃん"
+    ],
+    "favorite_food": "チーズ、から揚げ",
+    "one_liner": "ママー！って呼んでね♡",
+    "image": "img/mio.jpg"
+  },
+  {
+    "name": "卯月",
+    "birthday": "4/1",
+    "generation": "六代目",
+    "likes": [
+      "りぼん"
+    ],
+    "favorite_food": "チョコレート",
+    "one_liner": "仲良くしてください！",
+    "image": "img/uduki.jpg"
+  },
+  {
+    "name": "うな",
+    "birthday": "6/30",
+    "generation": "六代目",
+    "likes": [
+      "シャチ"
+    ],
+    "favorite_food": "大福といちごミルク",
+    "one_liner": "色んなお話聞きたいですー！！",
+    "image": "img/runa.jpg"
+  },
+  {
+    "name": "おと",
+    "birthday": "4/15",
+    "generation": "弐代目",
+    "likes": [
+      "スヌーピー",
+      "かわいい女の子"
+    ],
+    "favorite_food": "いちご、からあげ",
+    "one_liner": "ご主人様お嬢様の妹枠を私にください",
+    "image": "img/oto.jpg"
+  },
+  {
+    "name": "かなめ",
+    "birthday": "3/1",
+    "generation": "七代目",
+    "likes": [
+      "かわいい動物"
+    ],
+    "favorite_food": "甘いもの",
+    "one_liner": "お話しするのが好きなのでたくさんお話したいです♡",
+    "image": "img/kaname.jpg"
+  },
+  {
+    "name": "海月",
+    "birthday": "3/17",
+    "generation": "弐代目",
+    "likes": [
+      "アイドル",
+      "ミッフィー",
+      "食べること"
+    ],
+    "favorite_food": "米",
+    "one_liner": "",
+    "image": "img/kurage.jpg"
+  },
+  {
+    "name": "しぐれ",
+    "birthday": "9/3",
+    "generation": "四代目",
+    "likes": [
+      "シナモン",
+      "こねずみ",
+      "春ヒコ",
+      "ネットミーム",
+      "雀魂",
+      "ドラクエ",
+      "食べること"
+    ],
+    "favorite_food": "マック、生チョコ、パンケーキ",
+    "one_liner": "楽しいお話たくさんしようね♡待ってます",
+    "image": "img/shigure.jpg"
+  },
+  {
+    "name": "ソフィア",
+    "birthday": "3/9",
+    "generation": "七代目",
+    "likes": [
+      "アロマキャンドル",
+      "香水の残り香",
+      "星空",
+      "アニメ"
+    ],
+    "favorite_food": "焼きそば、アップルパイ、抹茶",
+    "one_liner": "ソフィアと過ごす時間は、日々の日常を忘れられる小さなご褒美。お帰り待ってます",
+    "image": "img/sofia.jpg"
+  },
+  {
+    "name": "つゆ",
+    "birthday": "8/8",
+    "generation": "七代目",
+    "likes": [
+      "甘い食べ物"
+    ],
+    "favorite_food": "チョコ",
+    "one_liner": "楽しくお話したい♡",
+    "image": "img/tsuyu.jpg"
+  },
+  {
+    "name": "なぎ",
+    "birthday": "9/4",
+    "generation": "四代目",
+    "likes": [
+      "はちわれ",
+      "いいにおい",
+      "やさしいひと"
+    ],
+    "favorite_food": "とまと以外",
+    "one_liner": "なぎちゃんってよんでください！！",
+    "image": "img/nagi.jpg"
+  },
+  {
+    "name": "ねね",
+    "birthday": "10/10",
+    "generation": "五代目",
+    "likes": [
+      "わたし♡"
+    ],
+    "favorite_food": "まかろん",
+    "one_liner": "い〜っぱいかわいがってね♡",
+    "image": "img/nene.jpg"
+  },
+  {
+    "name": "ぷぷ",
+    "birthday": "2/9",
+    "generation": "六代目",
+    "likes": [
+      "ゲーム",
+      "アニメ"
+    ],
+    "favorite_food": "わたあめ",
+    "one_liner": "ぷぷとたくさんお話してください♡",
+    "image": "img/pupu.jpg"
+  },
+  {
+    "name": "べあ",
+    "birthday": "2/22",
+    "generation": "六代目",
+    "likes": [
+      "きらきらしてるもの"
+    ],
+    "favorite_food": "はんばーぐ",
+    "one_liner": "べあにたくさんお話聞かせてください",
+    "image": "img/bea.jpg"
+  },
+  {
+    "name": "まりん",
+    "birthday": "1/10",
+    "generation": "五代目",
+    "likes": [
+      "きらきらしてるの！"
+    ],
+    "favorite_food": "ラーメン、センマイ",
+    "one_liner": "美味しいお店見つけたらまりんに報告に来てください♡",
+    "image": "img/marin.jpg"
+  },
+  {
+    "name": "まろ",
+    "birthday": "3/3",
+    "generation": "四代目",
+    "likes": [
+      "かわいいもの",
+      "かわいいひと",
+      "アイドル",
+      "チェキのお絵描き",
+      "モンハン",
+      "アニメ",
+      "わたしのことすきなひとたち"
+    ],
+    "favorite_food": "からいもの、ちょこみんと",
+    "one_liner": "わたしが幸せにするよー！まってる♡",
+    "image": "img/maro.jpg"
+  },
+  {
+    "name": "ミカ",
+    "birthday": "8/31",
+    "generation": "六代目",
+    "likes": [
+      "きらきらしたもの"
+    ],
+    "favorite_food": "寿司！、肉！、アイス！",
+    "one_liner": "沢山話してくれる人が好きです",
+    "image": "img/mika.jpg"
+  },
+  {
+    "name": "ゆの",
+    "birthday": "6/22",
+    "generation": "六代目",
+    "likes": [
+      "アイドル",
+      "ポムポムプリン"
+    ],
+    "favorite_food": "チーズケーキ",
+    "one_liner": "一緒にプリン食べよ〜！待ってるね♡",
+    "image": "img/yuno.jpg"
+  },
+  {
+    "name": "りあ",
+    "birthday": "9/22",
+    "generation": "五代目",
+    "likes": [
+      "シナモン",
+      "女の子アイドル"
+    ],
+    "favorite_food": "からあげ、餃子、チュロス",
+    "one_liner": "たくさんお話しましょう！よろしくお願いします！",
+    "image": "img/ria.jpg"
+  },
+  {
+    "name": "るな",
+    "birthday": "10/5",
+    "generation": "六代目",
+    "likes": [
+      "ごはん"
+    ],
+    "favorite_food": "白ごはん！",
+    "one_liner": "みんなとお話いっぱいできたら嬉しいな♡るなと楽しい時間を過ごすのだ！",
+    "image": "img/runa.jpg"
+  },
+  {
+    "name": "れい",
+    "birthday": "9/3",
+    "generation": "六代目",
+    "likes": [
+      "ちいかわのモモンガとゲーム"
+    ],
+    "favorite_food": "オムライスとマカロン",
+    "one_liner": "お話聞かせてください♡",
+    "image": "img/rei.jpg"
+  }
+]
