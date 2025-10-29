@@ -161,6 +161,17 @@
     "image": "img/ria.jpg"
   },
   {
+    "name": "りり",
+    "birthday": "4/25",
+    "generation": "七代目",
+    "likes": [
+      "マイメロ"
+    ],
+    "favorite_food": "うめぼし",
+    "one_liner": "たくさん会いにきてね♡",
+    "image": "img/riri.jpg"
+  },
+  {
     "name": "るな",
     "birthday": "10/5",
     "generation": "六代目",
