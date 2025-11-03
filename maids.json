@@ -1,4 +1,15 @@
 [
+   {
+    "name": "卯月",
+    "birthday": "4/1",
+    "generation": "六代目",
+    "likes": [
+      "りぼん"
+    ],
+    "favorite_food": "チョコレート",
+    "one_liner": "仲良くしてください！",
+    "image": "img/uduki.jpg"
+  },
   {
     "name": "うな",
     "birthday": "6/30",
@@ -33,6 +44,19 @@
     "one_liner": "お話しするのが好きなのでたくさんお話したいです♡",
     "image": "img/kaname.jpg"
   },
+   {
+    "name": "海月",
+    "birthday": "3/17",
+    "generation": "弐代目",
+    "likes": [
+      "アイドル",
+      "ミッフィー",
+      "食べること"
+    ],
+    "favorite_food": "米",
+    "one_liner": "キミも海月人(くらげんちゅ)にならへん？♡",
+    "image": "img/kurage.jpg"
+  }
   {
     "name": "しぐれ",
     "birthday": "9/3",
@@ -49,6 +73,20 @@
     "favorite_food": "マック、生チョコ、パンケーキ",
     "one_liner": "楽しいお話たくさんしようね♡待ってます",
     "image": "img/shigure.jpg"
+  },
+  {
+    "name": "ソフィア",
+    "birthday": "3/9",
+    "generation": "七代目",
+    "likes": [
+      "アロマキャンドル",
+      "香水の残り香",
+      "星空",
+      "アニメ"
+    ],
+    "favorite_food": "焼きそば、アップルパイ、抹茶",
+    "one_liner": "ソフィアと過ごす時間は、日々の日常を忘れられる小さなご褒美。お帰り待ってます",
+    "image": "img/sofia.jpg"
   },
   {
     "name": "なぎ",
@@ -136,6 +174,17 @@
     "one_liner": "ママー！って呼んでね♡",
     "image": "img/mio.jpg"
   },
+   {
+    "name": "ミカ",
+    "birthday": "8/31",
+    "generation": "六代目",
+    "likes": [
+      "きらきらしたもの"
+    ],
+    "favorite_food": "寿司！、肉！、アイス！",
+    "one_liner": "沢山話してくれる人が好きです",
+    "image": "img/mika.jpg"
+  },
   {
     "name": "ゆの",
     "birthday": "6/22",
@@ -193,53 +242,4 @@
     "one_liner": "お話聞かせてください♡",
     "image": "img/rei.jpg"
   },
-  {
-    "name": "ソフィア",
-    "birthday": "3/9",
-    "generation": "七代目",
-    "likes": [
-      "アロマキャンドル",
-      "香水の残り香",
-      "星空",
-      "アニメ"
-    ],
-    "favorite_food": "焼きそば、アップルパイ、抹茶",
-    "one_liner": "ソフィアと過ごす時間は、日々の日常を忘れられる小さなご褒美。お帰り待ってます",
-    "image": "img/sofia.jpg"
-  },
-  {
-    "name": "ミカ",
-    "birthday": "8/31",
-    "generation": "六代目",
-    "likes": [
-      "きらきらしたもの"
-    ],
-    "favorite_food": "寿司！、肉！、アイス！",
-    "one_liner": "沢山話してくれる人が好きです",
-    "image": "img/mika.jpg"
-  },
-  {
-    "name": "卯月",
-    "birthday": "4/1",
-    "generation": "六代目",
-    "likes": [
-      "りぼん"
-    ],
-    "favorite_food": "チョコレート",
-    "one_liner": "仲良くしてください！",
-    "image": "img/uduki.jpg"
-  },
-  {
-    "name": "海月",
-    "birthday": "3/17",
-    "generation": "弐代目",
-    "likes": [
-      "アイドル",
-      "ミッフィー",
-      "食べること"
-    ],
-    "favorite_food": "米",
-    "one_liner": "キミも海月人(くらげんちゅ)にならへん？♡",
-    "image": "img/kurage.jpg"
-  }
 ]
