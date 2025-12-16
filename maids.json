@@ -57,6 +57,18 @@
     "one_liner": "キミも海月人(くらげんちゅ)にならへん？♡",
     "image": "img/kurage.jpg"
   },
+    {
+    "name": "こぐま",
+    "birthday": "8/21",
+    "generation": "七代目",
+    "likes": [
+      "アイドル",
+      "ポケモン",
+    ],
+    "favorite_food": "白米、くるみ",
+    "one_liner": "こぐまにくまっちゃえ〜",
+    "image": "img/koguma.jpg"
+  },
   {
     "name": "しぐれ",
     "birthday": "9/3",
