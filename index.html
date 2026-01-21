@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -11,12 +10,19 @@
     .wrap{max-width:1100px;margin:0 auto;padding:20px}
     .title{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
     .title h1{margin:0;font-size:clamp(20px,3.5vw,34px);font-weight:800}
-    .toolbar{margin:16px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+    /* toolbar: 検索 / 世代 / 誕生月 */
+    .toolbar{margin:16px 0;display:grid;gap:10px;grid-template-columns:1fr}
+    @media(min-width:721px){.toolbar{grid-template-columns:1fr 1fr}}
+    @media(min-width:1024px){.toolbar{grid-template-columns:1fr 1fr 1fr}}
+
     .ctrl{display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--ring);border-radius:999px;padding:8px 12px;box-shadow:0 10px 25px rgba(0,0,0,.06)}
     .ctrl input[type=search],.ctrl select{flex:1;border:none;outline:none;background:transparent;font-size:14px}
+
     .grid{display:grid;grid-template-columns:repeat(1,1fr);gap:14px;margin-top:16px}
     @media(min-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}
     @media(min-width:1024px){.grid{grid-template-columns:repeat(3,1fr)}}
+
     .card{position:relative;background:var(--card);border:1px solid var(--ring);border-radius:18px;box-shadow:0 10px 25px rgba(0,0,0,.06);overflow:hidden}
     .top{display:flex;gap:12px;padding:14px}
     .avatar{width:84px;height:84px;border-radius:50%;flex:0 0 auto;background:#f4f7ff;border:2px solid var(--ring);display:grid;place-items:center;font-weight:900}
@@ -33,6 +39,7 @@
     .foot{display:flex;align-items:center;justify-content:flex-end;padding:10px 14px}
     .more{appearance:none;border:none;background:linear-gradient(90deg,#ff79a6,#7fc9ff);color:#fff;padding:8px 12px;border-radius:999px;font-weight:700;cursor:pointer}
     footer{margin:40px 0 10px;color:#8a8a8a;text-align:center;font-size:12px}
+
     dialog{border:none;border-radius:16px;max-width:min(680px,96vw);box-shadow:0 10px 25px rgba(0,0,0,.08);padding:0}
     dialog::backdrop{background:rgba(0,0,0,.25)}
     .modal{padding:16px}
@@ -54,8 +61,43 @@
     </div>
 
     <div class="toolbar" role="region" aria-label="絞り込み">
-      <div class="ctrl"><label for="q">検索</label><input id="q" type="search" placeholder="例：名前／好きなもの／好きな食べ物…"/></div>
-      <div class="ctrl"><label for="gen">世代</label><select id="gen"><option value="">すべて</option><option>初代</option><option>弐代目</option><option>三代目</option><option>四代目</option><option>五代目</option><option>六代目</option><option>七代目</option></select></div>
+      <div class="ctrl">
+        <label for="q">検索</label>
+        <input id="q" type="search" placeholder="例：名前／好きなもの／好きな食べ物…"/>
+      </div>
+
+      <div class="ctrl">
+        <label for="gen">世代</label>
+        <select id="gen">
+          <option value="">すべて</option>
+          <option>初代</option>
+          <option>弐代目</option>
+          <option>三代目</option>
+          <option>四代目</option>
+          <option>五代目</option>
+          <option>六代目</option>
+          <option>七代目</option>
+        </select>
+      </div>
+
+      <div class="ctrl">
+        <label for="month">誕生月</label>
+        <select id="month">
+          <option value="">すべて</option>
+          <option value="1">1月</option>
+          <option value="2">2月</option>
+          <option value="3">3月</option>
+          <option value="4">4月</option>
+          <option value="5">5月</option>
+          <option value="6">6月</option>
+          <option value="7">7月</option>
+          <option value="8">8月</option>
+          <option value="9">9月</option>
+          <option value="10">10月</option>
+          <option value="11">11月</option>
+          <option value="12">12月</option>
+        </select>
+      </div>
     </div>
 
     <div id="count" style="margin:6px 2px;color:#777;font-size:13px"></div>
@@ -67,11 +109,32 @@
 
   <script>
     const $= (s,c=document)=>c.querySelector(s);
-    const listEl=$('#list'), countEl=$('#count'), qEl=$('#q'), genEl=$('#gen');
+    const listEl=$('#list'), countEl=$('#count'), qEl=$('#q'), genEl=$('#gen'), monthEl=$('#month');
 
     const sortByNameJa = arr => arr.slice().sort((a,b)=> (a.name||'').localeCompare(b.name||'', 'ja'));
-    const matchQuery = (m,q)=>{ if(!q) return true; const hay=[m.name,m.generation,m.birthday,m.one_liner,(m.likes||[]).join(' '), m.favorite_food||'' ].join(' ').toLowerCase(); return hay.includes(q.toLowerCase()); };
+    const matchQuery = (m,q)=>{
+      if(!q) return true;
+      const hay=[m.name,m.generation,m.birthday,m.one_liner,(m.likes||[]).join(' '), m.favorite_food||'' ].join(' ').toLowerCase();
+      return hay.includes(q.toLowerCase());
+    };
     const matchGen = (m,g)=> !g || m.generation===g;
+
+    // "8/26" "08/26" "8-26" "8.26" などをゆるく許容して月を抽出
+    const getBirthMonth = (birthday) => {
+      if(!birthday) return null;
+      const s = String(birthday).trim();
+      const m = s.match(/^(\d{1,2})\s*[\/\-\.]\s*\d{1,2}$/);
+      if(!m) return null;
+      const month = parseInt(m[1], 10);
+      if(Number.isNaN(month) || month < 1 || month > 12) return null;
+      return month;
+    };
+    const matchMonth = (m, monthVal) => {
+      if(!monthVal) return true;
+      const mm = getBirthMonth(m.birthday);
+      return mm === parseInt(monthVal, 10);
+    };
+
     const initials = name => (name||'').slice(0,2);
     const safe = x => { const d=document.createElement('div'); d.textContent=x??''; return d.innerHTML; };
 
@@ -79,25 +142,98 @@
       const el=document.createElement('article'); el.className='card';
       const top=document.createElement('div'); top.className='top';
       const av=document.createElement('div'); av.className='avatar';
-      if(m.image){ const img=new Image(); img.loading='lazy'; img.alt=`${m.name}の写真`; img.src=m.image; av.appendChild(img);} else { const ini=document.createElement('div'); ini.className='initials'; ini.textContent=initials(m.name); av.appendChild(ini);} 
+
+      if(m.image){
+        const img=new Image();
+        img.loading='lazy';
+        img.alt=`${m.name}の写真`;
+        img.src=m.image;
+        av.appendChild(img);
+      } else {
+        const ini=document.createElement('div');
+        ini.className='initials';
+        ini.textContent=initials(m.name);
+        av.appendChild(ini);
+      }
+
       const meta=document.createElement('div'); meta.className='meta';
-      const name=document.createElement('div'); name.className='name'; name.innerHTML=`<h2>${safe(m.name)}</h2><span class="chip">${safe(m.generation||'')}</span>`;
-      const sub=document.createElement('div'); sub.className='subline'; sub.innerHTML=`誕生日：${safe(m.birthday||'—')}`;
+      const name=document.createElement('div'); name.className='name';
+      name.innerHTML=`<h2>${safe(m.name)}</h2><span class="chip">${safe(m.generation||'')}</span>`;
+
+      const sub=document.createElement('div'); sub.className='subline';
+      sub.innerHTML=`誕生日：${safe(m.birthday||'—')}`;
+
       const tags=document.createElement('div'); tags.className='tags';
-      (m.likes||[]).slice(0,3).forEach(t=>{ const tg=document.createElement('span'); tg.className='tag'; tg.textContent=t; tags.appendChild(tg);});
-      if(m.favorite_food){ const tg=document.createElement('span'); tg.className='tag'; tg.textContent=`好きな食べ物：${m.favorite_food}`; tags.appendChild(tg); }
-      meta.append(name,sub,tags); top.append(av,meta);
+      (m.likes||[]).slice(0,3).forEach(t=>{
+        const tg=document.createElement('span'); tg.className='tag'; tg.textContent=t; tags.appendChild(tg);
+      });
+      if(m.favorite_food){
+        const tg=document.createElement('span'); tg.className='tag';
+        tg.textContent=`好きな食べ物：${m.favorite_food}`;
+        tags.appendChild(tg);
+      }
+
+      meta.append(name,sub,tags);
+      top.append(av,meta);
+
       const line=document.createElement('div'); line.className='line';
       const foot=document.createElement('div'); foot.className='foot';
-      const more=document.createElement('button'); more.className='more'; more.textContent='詳細を見る'; more.type='button'; more.addEventListener('click',()=>openModal(m));
+      const more=document.createElement('button'); more.className='more';
+      more.textContent='詳細を見る';
+      more.type='button';
+      more.addEventListener('click',()=>openModal(m));
       foot.append(more);
+
       el.append(top,line,foot);
       return el;
     }
 
     function openModal(m){
       const d=document.getElementById('dlg');
-      d.innerHTML=`<div class="modal"><header><div class="avatar" style="width:64px;height:64px;">${ m.image?`<img alt="${safe(m.name)}" src="${m.image}">`:`<div class=\"initials\">${safe(initials(m.name))}</div>` }</div><div><h3>${safe(m.name)} <span class="chip">${safe(m.generation||'')}</span></h3><div class="subline">誕生日：${safe(m.birthday||'—')}</div></div></header><div class="grid2"><div class="kv">${ m.image?`<img alt="${safe(m.name)}の写真" src="${m.image}">`:`<div class=\"avatar\" style=\"width:140px;height:140px;margin:16px auto\"><div class=\"initials\" style=\"font-size:40px\">${safe(initials(m.name))}</div></div>` }</div><div class="dl"><dt>好きなもの</dt><dd>${safe((m.likes||[]).join('、')||'')}</dd><dt>好きな食べ物</dt><dd>${safe(m.favorite_food||'')}</dd><dt>ひとこと</dt><dd>${safe(m.one_liner||'')}</dd></div></div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px"><button onclick="this.closest('dialog').close()" class="more" style="background:transparent;border:1px solid var(--ring);color:#333">閉じる</button><button onclick="this.closest('dialog').close()" class="more">閉じる</button></div></div>`;
+      d.innerHTML=`
+        <div class="modal">
+          <header>
+            <div class="avatar" style="width:64px;height:64px;">
+              ${ m.image
+                ? `<img alt="${safe(m.name)}" src="${m.image}">`
+                : `<div class="initials">${safe(initials(m.name))}</div>`
+              }
+            </div>
+            <div>
+              <h3>${safe(m.name)} <span class="chip">${safe(m.generation||'')}</span></h3>
+              <div class="subline">誕生日：${safe(m.birthday||'—')}</div>
+            </div>
+          </header>
+
+          <div class="grid2">
+            <div class="kv">
+              ${ m.image
+                ? `<img alt="${safe(m.name)}の写真" src="${m.image}">`
+                : `<div class="avatar" style="width:140px;height:140px;margin:16px auto"><div class="initials" style="font-size:40px">${safe(initials(m.name))}</div></div>`
+              }
+            </div>
+
+            <div class="dl">
+              <dt>好きなもの</dt>
+              <dd>${safe((m.likes||[]).join('、')||'')}</dd>
+
+              <dt>好きな食べ物</dt>
+              <dd>${safe(m.favorite_food||'')}</dd>
+
+              <dt>ひとこと</dt>
+              <dd>${safe(m.one_liner||'')}</dd>
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
+            <button onclick="this.closest('dialog').close()"
+                    class="more"
+                    style="background:transparent;border:1px solid var(--ring);color:#333">
+              閉じる
+            </button>
+          </div>
+        </div>
+      `;
       d.showModal();
     }
 
@@ -114,13 +250,23 @@
     }
 
     function render(){
-      const q=qEl.value?.trim()||'', g=genEl.value;
+      const q=qEl.value?.trim()||'', g=genEl.value, mon=monthEl.value;
       const src = Array.isArray(window.DATA) ? window.DATA : [];
-      const items = sortByNameJa(src.filter(m=>matchQuery(m,q)).filter(m=>matchGen(m,g)));
+      const items = sortByNameJa(
+        src
+          .filter(m=>matchQuery(m,q))
+          .filter(m=>matchGen(m,g))
+          .filter(m=>matchMonth(m, mon))
+      );
       countEl.textContent = `${items.length} 名表示`;
-      listEl.innerHTML=''; items.forEach(m=>listEl.appendChild(card(m)));
+      listEl.innerHTML='';
+      items.forEach(m=>listEl.appendChild(card(m)));
     }
-    qEl.addEventListener('input',render); genEl.addEventListener('change',render);
+
+    qEl.addEventListener('input',render);
+    genEl.addEventListener('change',render);
+    monthEl.addEventListener('change',render);
+
     load();
   </script>
 </body>
