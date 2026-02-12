@@ -1,4 +1,15 @@
 [
+   {
+    "name": "あかり",
+    "birthday": "?/?",
+    "generation": "七代目",
+    "likes": [
+      "ねこ"
+    ],
+    "favorite_food": "いちご",
+    "one_liner": "いっぱい会えたらうれしいな♡",
+    "image": "img/profile preparation.png"
+  },
   {
     "name": "うな",
     "birthday": "6/30",
