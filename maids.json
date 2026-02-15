@@ -11,17 +11,6 @@
     "image": "img/profile preparation.png"
   },
   {
-    "name": "うな",
-    "birthday": "6/30",
-    "generation": "六代目",
-    "likes": [
-      "シャチ"
-    ],
-    "favorite_food": "大福といちごミルク",
-    "one_liner": "色んなお話聞きたいですー！！",
-    "image": "img/una.jpg"
-  },
-  {
     "name": "かなめ",
     "birthday": "3/1",
     "generation": "七代目",
@@ -162,17 +151,6 @@
     "favorite_food": "チーズ、から揚げ",
     "one_liner": "ママー！って呼んでね♡",
     "image": "img/mio.jpg"
-  },
-   {
-    "name": "ミカ",
-    "birthday": "8/31",
-    "generation": "六代目",
-    "likes": [
-      "きらきらしたもの"
-    ],
-    "favorite_food": "寿司！、肉！、アイス！",
-    "one_liner": "沢山話してくれる人が好きです",
-    "image": "img/mika.jpg"
   },
   {
     "name": "ゆの",
