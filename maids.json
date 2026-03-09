@@ -46,6 +46,18 @@
     "one_liner": "こぐまにくまっちゃえ〜",
     "image": "img/koguma.jpg"
   },
+   {
+    "name": "しいな",
+    "birthday": "?/?",
+    "generation": "七代目",
+    "likes": [
+      "?",
+      "?"
+    ],
+    "favorite_food": "?",
+    "one_liner": "?",
+    "image": "img/koguma.jpg"
+  },
   {
     "name": "しぐれ",
     "birthday": "9/3",
