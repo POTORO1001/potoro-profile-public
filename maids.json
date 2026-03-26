@@ -90,29 +90,6 @@
     "image": "img/nagi.jpg"
   },
   {
-    "name": "ぷぷ",
-    "birthday": "2/9",
-    "generation": "六代目",
-    "likes": [
-      "ゲーム",
-      "アニメ"
-    ],
-    "favorite_food": "わたあめ",
-    "one_liner": "ぷぷとたくさんお話してください♡",
-    "image": "img/pupu.jpg"
-  },
-  {
-    "name": "べあ",
-    "birthday": "2/22",
-    "generation": "六代目",
-    "likes": [
-      "きらきらしてるもの"
-    ],
-    "favorite_food": "はんばーぐ",
-    "one_liner": "べあにたくさんお話聞かせてください",
-    "image": "img/bea.jpg"
-  },
-  {
     "name": "まりん",
     "birthday": "1/10",
     "generation": "五代目",
