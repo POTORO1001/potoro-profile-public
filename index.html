@@ -5,65 +5,662 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>PO・TORO｜メイドプロフィール</title>
   <style>
-    :root{--bg:#fff7fb;--card:#fff;--ink:#2b2b2b;--sub:#666;--accent:#ff79a6;--accent2:#7fc9ff;--ring:#ffd7e6;--shadow:0 10px 25px rgba(0,0,0,.06);--radius:18px}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui}
-    .wrap{max-width:1100px;margin:0 auto;padding:20px}
-    .title{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .title h1{margin:0;font-size:clamp(20px,3.5vw,34px);font-weight:800}
+    :root{
+      --bg1:#fff7fb;
+      --bg2:#fffdfd;
+      --bg3:#f8f7ff;
+      --card:#ffffff;
+      --ink:#332b31;
+      --sub:#7b6f77;
+      --accent:#ff7fab;
+      --accent-deep:#f25d95;
+      --accent-soft:#ffe0ec;
+      --accent-blue:#b9dcff;
+      --mint:#dcfff4;
+      --ring:#ffd7e6;
+      --ring-strong:#ffc1d7;
+      --gold:#fff1b8;
+      --shadow:0 14px 34px rgba(222, 97, 144, .12);
+      --shadow-hover:0 20px 42px rgba(222, 97, 144, .18);
+      --radius-xl:26px;
+      --radius-lg:20px;
+      --radius-md:16px;
+      --radius-sm:12px;
+      --max:1120px;
+    }
 
-    /* toolbar: 検索 / 世代 / 誕生月 */
-    .toolbar{margin:16px 0;display:grid;gap:10px;grid-template-columns:1fr}
-    @media(min-width:721px){.toolbar{grid-template-columns:1fr 1fr}}
-    @media(min-width:1024px){.toolbar{grid-template-columns:1fr 1fr 1fr}}
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      padding:0;
+      color:var(--ink);
+      font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",system-ui,sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,192,219,.30) 0 3px, transparent 4px) 0 0/28px 28px,
+        radial-gradient(circle at 85% 12%, rgba(191,220,255,.28) 0 3px, transparent 4px) 0 0/34px 34px,
+        linear-gradient(180deg,var(--bg1),var(--bg2) 42%,var(--bg3));
+      min-height:100vh;
+    }
 
-    .ctrl{display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--ring);border-radius:999px;padding:8px 12px;box-shadow:0 10px 25px rgba(0,0,0,.06)}
-    .ctrl input[type=search],.ctrl select{flex:1;border:none;outline:none;background:transparent;font-size:14px}
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at top right, rgba(255,255,255,.55), transparent 30%),
+        radial-gradient(circle at left center, rgba(255,223,236,.45), transparent 28%);
+      z-index:0;
+    }
 
-    .grid{display:grid;grid-template-columns:repeat(1,1fr);gap:14px;margin-top:16px}
-    @media(min-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media(min-width:1024px){.grid{grid-template-columns:repeat(3,1fr)}}
+    .wrap{
+      position:relative;
+      z-index:1;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:24px 16px 34px;
+    }
 
-    .card{position:relative;background:var(--card);border:1px solid var(--ring);border-radius:18px;box-shadow:0 10px 25px rgba(0,0,0,.06);overflow:hidden}
-    .top{display:flex;gap:12px;padding:14px}
-    .avatar{width:84px;height:84px;border-radius:50%;flex:0 0 auto;background:#f4f7ff;border:2px solid var(--ring);display:grid;place-items:center;font-weight:900}
-    .avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-    .initials{font-size:24px;color:#667}
-    .meta{flex:1;min-width:0}
-    .name{display:flex;gap:8px;align-items:center}
-    .name h2{margin:0;font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .chip{font-size:12px;background:#fff2f7;border:1px solid var(--ring);color:#c12569;padding:2px 8px;border-radius:999px}
-    .subline{font-size:12px;color:#666}
-    .tags{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
-    .tag{font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid var(--ring);background:#f9fbff;color:#356}
-    .line{height:1px;background:linear-gradient(90deg,#ffe3ef,#eaf6ff)}
-    .foot{display:flex;align-items:center;justify-content:flex-end;padding:10px 14px}
-    .more{appearance:none;border:none;background:linear-gradient(90deg,#ff79a6,#7fc9ff);color:#fff;padding:8px 12px;border-radius:999px;font-weight:700;cursor:pointer}
-    footer{margin:40px 0 10px;color:#8a8a8a;text-align:center;font-size:12px}
+    .hero{
+      position:relative;
+      overflow:hidden;
+      padding:26px 20px 22px;
+      border-radius:32px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,247,251,.92) 45%, rgba(248,247,255,.95));
+      border:1px solid rgba(255,215,230,.95);
+      box-shadow:var(--shadow);
+    }
 
-    dialog{border:none;border-radius:16px;max-width:min(680px,96vw);box-shadow:0 10px 25px rgba(0,0,0,.08);padding:0}
-    dialog::backdrop{background:rgba(0,0,0,.25)}
-    .modal{padding:16px}
-    .modal header{display:flex;gap:12px;align-items:center;margin-bottom:8px}
-    .modal h3{margin:0;font-size:22px}
-    .grid2{display:grid;grid-template-columns:1fr;gap:12px}
-    @media(min-width:720px){.grid2{grid-template-columns:200px 1fr}}
-    .kv{border:1px solid var(--ring);border-radius:12px;padding:12px;display:grid;place-items:center;background:#fff}
-    .kv img{width:100%;height:auto;border-radius:10px}
-    .dl{background:#fff;border:1px solid var(--ring);border-radius:12px;padding:12px}
-    .dl dt{font-weight:700;margin-top:8px}
-    .dl dd{margin:4px 0 8px 0;color:#333}
+    .hero::before,
+    .hero::after{
+      content:"";
+      position:absolute;
+      border-radius:999px;
+      filter:blur(8px);
+      opacity:.65;
+      pointer-events:none;
+    }
+
+    .hero::before{
+      width:180px;
+      height:180px;
+      background:rgba(255,204,224,.35);
+      top:-60px;
+      right:-30px;
+    }
+
+    .hero::after{
+      width:140px;
+      height:140px;
+      background:rgba(185,220,255,.32);
+      bottom:-40px;
+      left:-30px;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      margin-bottom:14px;
+      border-radius:999px;
+      background:linear-gradient(90deg,#fff,#fff4f8);
+      border:1px solid var(--ring);
+      color:var(--accent-deep);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.08em;
+      box-shadow:0 8px 20px rgba(255,127,171,.08);
+    }
+
+    .title{
+      display:flex;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:10px 14px;
+    }
+
+    .title h1{
+      margin:0;
+      font-size:clamp(24px,4.2vw,40px);
+      line-height:1.25;
+      font-weight:900;
+      letter-spacing:.01em;
+    }
+
+    .title .brand{
+      color:var(--accent-deep);
+      text-shadow:0 2px 0 rgba(255,255,255,.85);
+    }
+
+    .lead{
+      margin:12px 0 0;
+      color:var(--sub);
+      font-size:14px;
+      line-height:1.8;
+    }
+
+    .ribbon{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:16px;
+      padding:10px 18px;
+      border-radius:999px;
+      background:linear-gradient(90deg, var(--accent), #ff99bd 55%, #ffc7d9);
+      color:#fff;
+      font-weight:800;
+      font-size:13px;
+      letter-spacing:.04em;
+      box-shadow:0 10px 22px rgba(255,127,171,.20);
+    }
+
+    .toolbar{
+      margin:18px 0 14px;
+      display:grid;
+      gap:12px;
+      grid-template-columns:1fr;
+    }
+
+    @media(min-width:721px){
+      .toolbar{grid-template-columns:1fr 1fr}
+    }
+    @media(min-width:1024px){
+      .toolbar{grid-template-columns:1.2fr 1fr 1fr}
+    }
+
+    .ctrl{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      background:rgba(255,255,255,.92);
+      border:1px solid var(--ring);
+      border-radius:999px;
+      padding:10px 14px;
+      box-shadow:0 10px 24px rgba(230,141,177,.08);
+      backdrop-filter:blur(6px);
+    }
+
+    .ctrl label{
+      flex:0 0 auto;
+      font-size:13px;
+      font-weight:800;
+      color:var(--accent-deep);
+      white-space:nowrap;
+    }
+
+    .ctrl input[type=search],
+    .ctrl select{
+      flex:1;
+      border:none;
+      outline:none;
+      background:transparent;
+      font-size:14px;
+      color:var(--ink);
+      min-width:0;
+    }
+
+    .ctrl input[type=search]::placeholder{
+      color:#b59aa7;
+    }
+
+    .statusbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin:8px 2px 16px;
+      flex-wrap:wrap;
+    }
+
+    #count{
+      color:#7d7180;
+      font-size:13px;
+      font-weight:700;
+      background:rgba(255,255,255,.75);
+      border:1px solid rgba(255,215,230,.85);
+      border-radius:999px;
+      padding:7px 12px;
+      box-shadow:0 6px 14px rgba(255,127,171,.06);
+    }
+
+    .hint{
+      color:#9a8b95;
+      font-size:12px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(1, minmax(0,1fr));
+      gap:16px;
+    }
+
+    @media(min-width:640px){
+      .grid{grid-template-columns:repeat(2, minmax(0,1fr))}
+    }
+
+    @media(min-width:1024px){
+      .grid{grid-template-columns:repeat(3, minmax(0,1fr))}
+    }
+
+    .card{
+      position:relative;
+      overflow:hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,250,252,.98));
+      border:1px solid rgba(255,215,230,.95);
+      border-radius:var(--radius-xl);
+      box-shadow:var(--shadow);
+      transition:transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+      isolation:isolate;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at top right, rgba(255,230,239,.70), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(185,220,255,.28), transparent 28%);
+      z-index:0;
+      pointer-events:none;
+    }
+
+    .card::after{
+      content:"♡";
+      position:absolute;
+      right:14px;
+      top:10px;
+      font-size:18px;
+      color:rgba(242,93,149,.22);
+      z-index:0;
+      pointer-events:none;
+    }
+
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:var(--shadow-hover);
+      border-color:var(--ring-strong);
+    }
+
+    .top{
+      position:relative;
+      z-index:1;
+      display:flex;
+      gap:14px;
+      padding:16px;
+    }
+
+    .avatar{
+      position:relative;
+      width:92px;
+      height:92px;
+      border-radius:24px;
+      flex:0 0 auto;
+      display:grid;
+      place-items:center;
+      background:
+        linear-gradient(135deg,#fff,#fff7fb 45%,#f5f9ff);
+      border:2px solid #fff;
+      box-shadow:
+        0 0 0 3px rgba(255,214,230,.95),
+        0 10px 22px rgba(255,127,171,.12);
+      overflow:hidden;
+    }
+
+    .avatar::before{
+      content:"";
+      position:absolute;
+      inset:6px;
+      border:1px dashed rgba(255,174,202,.65);
+      border-radius:18px;
+      pointer-events:none;
+    }
+
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius:20px;
+      display:block;
+    }
+
+    .initials{
+      font-size:24px;
+      font-weight:900;
+      color:#836c79;
+      letter-spacing:.04em;
+    }
+
+    .meta{
+      flex:1;
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .name{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .name h2{
+      margin:0;
+      font-size:22px;
+      line-height:1.3;
+      font-weight:900;
+      max-width:100%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-size:12px;
+      font-weight:800;
+      background:linear-gradient(90deg,#fff2f7,#fff9fb);
+      border:1px solid var(--ring);
+      color:#c12569;
+      padding:4px 10px;
+      border-radius:999px;
+      box-shadow:0 4px 10px rgba(255,127,171,.08);
+    }
+
+    .subline{
+      margin-top:6px;
+      font-size:13px;
+      color:var(--sub);
+      line-height:1.6;
+    }
+
+    .one-liner{
+      margin-top:8px;
+      padding:10px 12px;
+      border-radius:14px;
+      background:linear-gradient(180deg,#fff,#fff6fa);
+      border:1px dashed rgba(255,193,215,.95);
+      color:#7a5f6b;
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .tags{
+      margin-top:10px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      max-width:100%;
+      font-size:11px;
+      line-height:1.4;
+      padding:5px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,215,230,.95);
+      background:linear-gradient(180deg,#ffffff,#fff7fb);
+      color:#6d5f68;
+      box-shadow:0 4px 10px rgba(255,127,171,.06);
+      word-break:break-word;
+    }
+
+    .tag.food{
+      background:linear-gradient(180deg,#f9fcff,#eef7ff);
+      border-color:#d8eaff;
+      color:#4e6c8c;
+    }
+
+    .line{
+      height:1px;
+      background:linear-gradient(90deg, transparent, #ffdbe8 18%, #e6f3ff 50%, #ffdbe8 82%, transparent);
+      position:relative;
+      z-index:1;
+    }
+
+    .foot{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:12px 16px 16px;
+    }
+
+    .mini-note{
+      font-size:12px;
+      color:#a18f98;
+    }
+
+    .more{
+      appearance:none;
+      border:none;
+      background:linear-gradient(90deg,var(--accent),#ff93b8 50%, #ffb8cf);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:800;
+      cursor:pointer;
+      box-shadow:0 10px 18px rgba(255,127,171,.20);
+      transition:transform .18s ease, filter .18s ease;
+    }
+
+    .more:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.02);
+    }
+
+    .more:active{
+      transform:translateY(0);
+    }
+
+    .empty,
+    .errorbox{
+      background:rgba(255,255,255,.92);
+      border:1px solid var(--ring);
+      border-radius:22px;
+      padding:26px 18px;
+      text-align:center;
+      box-shadow:var(--shadow);
+      color:#7c6d75;
+    }
+
+    .empty strong,
+    .errorbox strong{
+      color:var(--accent-deep);
+    }
+
+    footer{
+      margin:38px 0 8px;
+      color:#988a93;
+      text-align:center;
+      font-size:12px;
+      line-height:1.8;
+    }
+
+    dialog{
+      border:none;
+      border-radius:28px;
+      max-width:min(760px, 96vw);
+      width:min(760px, 96vw);
+      padding:0;
+      background:transparent;
+    }
+
+    dialog::backdrop{
+      background:rgba(72, 41, 57, .35);
+      backdrop-filter:blur(3px);
+    }
+
+    .modal{
+      position:relative;
+      overflow:hidden;
+      padding:18px;
+      border-radius:28px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,249,252,.98));
+      border:1px solid rgba(255,215,230,.96);
+      box-shadow:0 20px 50px rgba(88,41,61,.18);
+    }
+
+    .modal::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at top right, rgba(255,224,236,.82), transparent 25%),
+        radial-gradient(circle at bottom left, rgba(185,220,255,.30), transparent 28%);
+      pointer-events:none;
+    }
+
+    .modal-inner{
+      position:relative;
+      z-index:1;
+    }
+
+    .modal header{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      margin-bottom:14px;
+      padding-bottom:14px;
+      border-bottom:1px solid rgba(255,220,233,.95);
+    }
+
+    .modal h3{
+      margin:0;
+      font-size:26px;
+      line-height:1.3;
+      font-weight:900;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+
+    @media(min-width:720px){
+      .grid2{grid-template-columns:220px 1fr}
+    }
+
+    .kv{
+      border:1px solid var(--ring);
+      border-radius:22px;
+      padding:12px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(180deg,#fff,#fff7fb);
+      box-shadow:0 10px 24px rgba(255,127,171,.08);
+    }
+
+    .kv img{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius:16px;
+      box-shadow:0 8px 20px rgba(255,127,171,.10);
+    }
+
+    .dl{
+      background:linear-gradient(180deg,#fff,#fffafc);
+      border:1px solid var(--ring);
+      border-radius:22px;
+      padding:14px;
+      box-shadow:0 10px 24px rgba(255,127,171,.05);
+    }
+
+    .row{
+      padding:10px 0;
+      border-bottom:1px dashed rgba(255,209,225,.9);
+    }
+
+    .row:last-child{
+      border-bottom:none;
+      padding-bottom:0;
+    }
+
+    .row:first-child{
+      padding-top:0;
+    }
+
+    .dl dt{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-weight:900;
+      color:var(--accent-deep);
+      margin:0 0 6px;
+      font-size:14px;
+    }
+
+    .dl dd{
+      margin:0;
+      color:#5a4c54;
+      line-height:1.85;
+      font-size:14px;
+      word-break:break-word;
+    }
+
+    .modal-actions{
+      display:flex;
+      justify-content:flex-end;
+      gap:8px;
+      margin-top:14px;
+    }
+
+    .ghost{
+      appearance:none;
+      border:1px solid var(--ring);
+      background:rgba(255,255,255,.85);
+      color:#51464c;
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    @media(max-width:520px){
+      .wrap{padding:16px 12px 28px}
+      .hero{padding:20px 16px 18px}
+      .title h1{font-size:clamp(22px,7vw,30px)}
+      .top{padding:14px}
+      .avatar{width:84px;height:84px}
+      .name h2{font-size:20px}
+      .modal h3{font-size:22px}
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="title">
-      <h1>concept cafe <span style="color:#ff79a6">PO・TORO</span> ／ メイドプロフィール</h1>
-    </div>
+    <section class="hero" aria-label="ページヘッダー">
+      <div class="eyebrow">♡ Maid Profile Collection ♡</div>
+
+      <div class="title">
+        <h1>concept cafe <span class="brand">PO・TORO</span> ／ メイドプロフィール</h1>
+      </div>
+
+      <p class="lead">
+        PO・TOROでお給仕するメイドさんたちのプロフィールです。<br>
+        気になるメイドさんを見つけたら、「詳細を見る」からチェックしてください♡
+      </p>
+
+      <div class="ribbon">ふわっと可愛くプロフィールをチェック</div>
+    </section>
 
     <div class="toolbar" role="region" aria-label="絞り込み">
       <div class="ctrl">
         <label for="q">検索</label>
-        <input id="q" type="search" placeholder="例：名前／好きなもの／好きな食べ物…"/>
+        <input id="q" type="search" placeholder="例：名前／好きなもの／好きな食べ物…" />
       </div>
 
       <div class="ctrl">
@@ -100,172 +697,271 @@
       </div>
     </div>
 
-    <div id="count" style="margin:6px 2px;color:#777;font-size:13px"></div>
+    <div class="statusbar">
+      <div id="count">0 名表示</div>
+      <div class="hint">検索・世代・誕生月で絞り込みできます</div>
+    </div>
+
     <div id="list" class="grid" aria-live="polite"></div>
-    <footer>© concept cafe PO・TORO</footer>
+
+    <footer>
+      © concept cafe PO・TORO<br>
+      Maid Profile Page
+    </footer>
   </div>
 
-  <dialog id="dlg"></dialog>
+  <dialog id="dlg" aria-label="メイドプロフィール詳細"></dialog>
 
   <script>
-    const $= (s,c=document)=>c.querySelector(s);
-    const listEl=$('#list'), countEl=$('#count'), qEl=$('#q'), genEl=$('#gen'), monthEl=$('#month');
+    const $ = (s, c = document) => c.querySelector(s);
+    const listEl = $('#list');
+    const countEl = $('#count');
+    const qEl = $('#q');
+    const genEl = $('#gen');
+    const monthEl = $('#month');
 
-    const sortByNameJa = arr => arr.slice().sort((a,b)=> (a.name||'').localeCompare(b.name||'', 'ja'));
-    const matchQuery = (m,q)=>{
-      if(!q) return true;
-      const hay=[m.name,m.generation,m.birthday,m.one_liner,(m.likes||[]).join(' '), m.favorite_food||'' ].join(' ').toLowerCase();
+    const sortByNameJa = arr =>
+      arr.slice().sort((a, b) => (a.name || '').localeCompare(b.name || '', 'ja'));
+
+    const matchQuery = (m, q) => {
+      if (!q) return true;
+      const hay = [
+        m.name,
+        m.generation,
+        m.birthday,
+        m.one_liner,
+        (m.likes || []).join(' '),
+        m.favorite_food || ''
+      ].join(' ').toLowerCase();
       return hay.includes(q.toLowerCase());
     };
-    const matchGen = (m,g)=> !g || m.generation===g;
 
-    // "8/26" "08/26" "8-26" "8.26" などをゆるく許容して月を抽出
+    const matchGen = (m, g) => !g || m.generation === g;
+
     const getBirthMonth = (birthday) => {
-      if(!birthday) return null;
+      if (!birthday) return null;
       const s = String(birthday).trim();
       const m = s.match(/^(\d{1,2})\s*[\/\-\.]\s*\d{1,2}$/);
-      if(!m) return null;
+      if (!m) return null;
       const month = parseInt(m[1], 10);
-      if(Number.isNaN(month) || month < 1 || month > 12) return null;
+      if (Number.isNaN(month) || month < 1 || month > 12) return null;
       return month;
     };
+
     const matchMonth = (m, monthVal) => {
-      if(!monthVal) return true;
+      if (!monthVal) return true;
       const mm = getBirthMonth(m.birthday);
       return mm === parseInt(monthVal, 10);
     };
 
-    const initials = name => (name||'').slice(0,2);
-    const safe = x => { const d=document.createElement('div'); d.textContent=x??''; return d.innerHTML; };
+    const initials = name => (name || '').slice(0, 2);
+    const safe = x => {
+      const d = document.createElement('div');
+      d.textContent = x ?? '';
+      return d.innerHTML;
+    };
 
-    function card(m){
-      const el=document.createElement('article'); el.className='card';
-      const top=document.createElement('div'); top.className='top';
-      const av=document.createElement('div'); av.className='avatar';
+    function createTag(text, className = '') {
+      const tg = document.createElement('span');
+      tg.className = `tag ${className}`.trim();
+      tg.textContent = text;
+      return tg;
+    }
 
-      if(m.image){
-        const img=new Image();
-        img.loading='lazy';
-        img.alt=`${m.name}の写真`;
-        img.src=m.image;
+    function card(m) {
+      const el = document.createElement('article');
+      el.className = 'card';
+
+      const top = document.createElement('div');
+      top.className = 'top';
+
+      const av = document.createElement('div');
+      av.className = 'avatar';
+
+      if (m.image) {
+        const img = new Image();
+        img.loading = 'lazy';
+        img.alt = `${m.name}の写真`;
+        img.src = m.image;
         av.appendChild(img);
       } else {
-        const ini=document.createElement('div');
-        ini.className='initials';
-        ini.textContent=initials(m.name);
+        const ini = document.createElement('div');
+        ini.className = 'initials';
+        ini.textContent = initials(m.name);
         av.appendChild(ini);
       }
 
-      const meta=document.createElement('div'); meta.className='meta';
-      const name=document.createElement('div'); name.className='name';
-      name.innerHTML=`<h2>${safe(m.name)}</h2><span class="chip">${safe(m.generation||'')}</span>`;
+      const meta = document.createElement('div');
+      meta.className = 'meta';
 
-      const sub=document.createElement('div'); sub.className='subline';
-      sub.innerHTML=`誕生日：${safe(m.birthday||'—')}`;
+      const name = document.createElement('div');
+      name.className = 'name';
+      name.innerHTML = `<h2>${safe(m.name)}</h2><span class="chip">✦ ${safe(m.generation || '')}</span>`;
 
-      const tags=document.createElement('div'); tags.className='tags';
-      (m.likes||[]).slice(0,3).forEach(t=>{
-        const tg=document.createElement('span'); tg.className='tag'; tg.textContent=t; tags.appendChild(tg);
+      const sub = document.createElement('div');
+      sub.className = 'subline';
+      sub.innerHTML = `🎂 誕生日：${safe(m.birthday || '—')}`;
+
+      const one = document.createElement('div');
+      one.className = 'one-liner';
+      one.textContent = m.one_liner || 'プロフィール準備中です♡';
+
+      const tags = document.createElement('div');
+      tags.className = 'tags';
+
+      (m.likes || []).slice(0, 3).forEach(t => {
+        tags.appendChild(createTag(`♡ ${t}`));
       });
-      if(m.favorite_food){
-        const tg=document.createElement('span'); tg.className='tag';
-        tg.textContent=`好きな食べ物：${m.favorite_food}`;
-        tags.appendChild(tg);
+
+      if (m.favorite_food) {
+        tags.appendChild(createTag(`🍰 ${m.favorite_food}`, 'food'));
       }
 
-      meta.append(name,sub,tags);
-      top.append(av,meta);
+      meta.append(name, sub, one, tags);
+      top.append(av, meta);
 
-      const line=document.createElement('div'); line.className='line';
-      const foot=document.createElement('div'); foot.className='foot';
-      const more=document.createElement('button'); more.className='more';
-      more.textContent='詳細を見る';
-      more.type='button';
-      more.addEventListener('click',()=>openModal(m));
-      foot.append(more);
+      const line = document.createElement('div');
+      line.className = 'line';
 
-      el.append(top,line,foot);
+      const foot = document.createElement('div');
+      foot.className = 'foot';
+
+      const note = document.createElement('div');
+      note.className = 'mini-note';
+      note.textContent = 'Tap / Click で詳細表示';
+
+      const more = document.createElement('button');
+      more.className = 'more';
+      more.type = 'button';
+      more.textContent = '詳細を見る';
+      more.addEventListener('click', () => openModal(m));
+
+      foot.append(note, more);
+      el.append(top, line, foot);
+
       return el;
     }
 
-    function openModal(m){
-      const d=document.getElementById('dlg');
-      d.innerHTML=`
+    function openModal(m) {
+      const d = document.getElementById('dlg');
+      d.innerHTML = `
         <div class="modal">
-          <header>
-            <div class="avatar" style="width:64px;height:64px;">
-              ${ m.image
-                ? `<img alt="${safe(m.name)}" src="${m.image}">`
-                : `<div class="initials">${safe(initials(m.name))}</div>`
-              }
+          <div class="modal-inner">
+            <header>
+              <div class="avatar" style="width:72px;height:72px;">
+                ${
+                  m.image
+                    ? `<img alt="${safe(m.name)}" src="${m.image}">`
+                    : `<div class="initials">${safe(initials(m.name))}</div>`
+                }
+              </div>
+              <div>
+                <h3>${safe(m.name)} <span class="chip">✦ ${safe(m.generation || '')}</span></h3>
+                <div class="subline">🎂 誕生日：${safe(m.birthday || '—')}</div>
+              </div>
+            </header>
+
+            <div class="grid2">
+              <div class="kv">
+                ${
+                  m.image
+                    ? `<img alt="${safe(m.name)}の写真" src="${m.image}">`
+                    : `<div class="avatar" style="width:150px;height:150px;margin:10px auto;"><div class="initials" style="font-size:42px">${safe(initials(m.name))}</div></div>`
+                }
+              </div>
+
+              <dl class="dl">
+                <div class="row">
+                  <dt>♡ 好きなもの</dt>
+                  <dd>${safe((m.likes || []).join('、') || '準備中')}</dd>
+                </div>
+
+                <div class="row">
+                  <dt>🍰 好きな食べ物</dt>
+                  <dd>${safe(m.favorite_food || '準備中')}</dd>
+                </div>
+
+                <div class="row">
+                  <dt>💌 ひとこと</dt>
+                  <dd>${safe(m.one_liner || 'プロフィール準備中です♡')}</dd>
+                </div>
+              </dl>
             </div>
-            <div>
-              <h3>${safe(m.name)} <span class="chip">${safe(m.generation||'')}</span></h3>
-              <div class="subline">誕生日：${safe(m.birthday||'—')}</div>
+
+            <div class="modal-actions">
+              <button type="button" class="ghost" onclick="this.closest('dialog').close()">閉じる</button>
             </div>
-          </header>
-
-          <div class="grid2">
-            <div class="kv">
-              ${ m.image
-                ? `<img alt="${safe(m.name)}の写真" src="${m.image}">`
-                : `<div class="avatar" style="width:140px;height:140px;margin:16px auto"><div class="initials" style="font-size:40px">${safe(initials(m.name))}</div></div>`
-              }
-            </div>
-
-            <div class="dl">
-              <dt>好きなもの</dt>
-              <dd>${safe((m.likes||[]).join('、')||'')}</dd>
-
-              <dt>好きな食べ物</dt>
-              <dd>${safe(m.favorite_food||'')}</dd>
-
-              <dt>ひとこと</dt>
-              <dd>${safe(m.one_liner||'')}</dd>
-            </div>
-          </div>
-
-          <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
-            <button onclick="this.closest('dialog').close()"
-                    class="more"
-                    style="background:transparent;border:1px solid var(--ring);color:#333">
-              閉じる
-            </button>
           </div>
         </div>
       `;
       d.showModal();
     }
 
-    async function load(){
-      try{
-        const r = await fetch('./maids.json', {cache:'no-cache'});
+    async function load() {
+      try {
+        const r = await fetch('./maids.json', { cache: 'no-cache' });
+
+        if (!r.ok) {
+          throw new Error(`HTTP ${r.status}`);
+        }
+
         const data = await r.json();
+
+        if (!Array.isArray(data)) {
+          throw new Error('maids.json の形式が配列ではありません');
+        }
+
         window.DATA = data;
         render();
-      }catch(e){
-        document.querySelector('#list').innerHTML = '<p>maids.json を読み込めませんでした。配置とパスをご確認ください。</p>';
+      } catch (e) {
+        listEl.innerHTML = `
+          <div class="errorbox">
+            <p><strong>maids.json の読み込みに失敗しました。</strong></p>
+            <p>配置・ファイル名・JSON形式をご確認ください。</p>
+          </div>
+        `;
+        countEl.textContent = '0 名表示';
         console.error(e);
       }
     }
 
-    function render(){
-      const q=qEl.value?.trim()||'', g=genEl.value, mon=monthEl.value;
+    function render() {
+      const q = qEl.value?.trim() || '';
+      const g = genEl.value;
+      const mon = monthEl.value;
       const src = Array.isArray(window.DATA) ? window.DATA : [];
+
       const items = sortByNameJa(
         src
-          .filter(m=>matchQuery(m,q))
-          .filter(m=>matchGen(m,g))
-          .filter(m=>matchMonth(m, mon))
+          .filter(m => matchQuery(m, q))
+          .filter(m => matchGen(m, g))
+          .filter(m => matchMonth(m, mon))
       );
+
       countEl.textContent = `${items.length} 名表示`;
-      listEl.innerHTML='';
-      items.forEach(m=>listEl.appendChild(card(m)));
+      listEl.innerHTML = '';
+
+      if (!items.length) {
+        listEl.innerHTML = `
+          <div class="empty">
+            <p><strong>該当するメイドさんが見つかりませんでした。</strong></p>
+            <p>検索条件を変えて、もう一度お試しください♡</p>
+          </div>
+        `;
+        return;
+      }
+
+      items.forEach(m => listEl.appendChild(card(m)));
     }
 
-    qEl.addEventListener('input',render);
-    genEl.addEventListener('change',render);
-    monthEl.addEventListener('change',render);
+    qEl.addEventListener('input', render);
+    genEl.addEventListener('change', render);
+    monthEl.addEventListener('change', render);
+
+    document.addEventListener('click', (e) => {
+      const dlg = document.getElementById('dlg');
+      if (e.target === dlg) dlg.close();
+    });
 
     load();
   </script>
