@@ -10,6 +10,17 @@
     "one_liner": "いっぱい会えたらうれしいな♡",
     "image": "img/akari.png"
   },
+     {
+    "name": "きなぴー",
+    "birthday": "?/?",
+    "generation": "四代目",
+    "likes": [
+      "??"
+    ],
+    "favorite_food": "??",
+    "one_liner": "??",
+    "image": "img/profile preparation.png"
+  },
     {
     "name": "こぐま",
     "birthday": "8/21",
@@ -50,6 +61,17 @@
     "favorite_food": "マック、生チョコ、パンケーキ",
     "one_liner": "楽しいお話たくさんしようね♡待ってます",
     "image": "img/shigure.jpg"
+  },
+　 {
+    "name": "せな",
+    "birthday": "?/?",
+    "generation": "七代目",
+    "likes": [
+      "??"
+    ],
+    "favorite_food": "??",
+    "one_liner": "??",
+    "image": "img/profile preparation.png"
   },
   {
     "name": "ソフィア",
