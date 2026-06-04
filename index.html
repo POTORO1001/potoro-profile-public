@@ -156,6 +156,37 @@
       box-shadow:0 10px 22px rgba(255,127,171,.20);
     }
 
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:10px;
+      margin-top:16px;
+      max-width:520px;
+    }
+
+    .stat{
+      padding:10px 12px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(255,215,230,.9);
+      box-shadow:0 8px 18px rgba(255,127,171,.08);
+    }
+
+    .stat b{
+      display:block;
+      color:var(--accent-deep);
+      font-size:18px;
+      line-height:1.1;
+    }
+
+    .stat span{
+      display:block;
+      margin-top:4px;
+      color:#887983;
+      font-size:11px;
+      font-weight:800;
+    }
+
     .toolbar{
       margin:18px 0 14px;
       display:grid;
@@ -167,7 +198,7 @@
       .toolbar{grid-template-columns:1fr 1fr}
     }
     @media(min-width:1024px){
-      .toolbar{grid-template-columns:1.2fr 1fr 1fr}
+      .toolbar{grid-template-columns:1.3fr .9fr .9fr .9fr}
     }
 
     .ctrl{
@@ -230,6 +261,24 @@
       font-size:12px;
     }
 
+    .reset{
+      appearance:none;
+      border:1px solid var(--ring);
+      background:rgba(255,255,255,.85);
+      color:#6d5a64;
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      cursor:pointer;
+      box-shadow:0 6px 14px rgba(255,127,171,.06);
+    }
+
+    .reset:hover{
+      border-color:var(--ring-strong);
+      color:var(--accent-deep);
+    }
+
     .grid{
       display:grid;
       grid-template-columns:repeat(1, minmax(0,1fr));
@@ -282,6 +331,11 @@
       transform:translateY(-4px);
       box-shadow:var(--shadow-hover);
       border-color:var(--ring-strong);
+    }
+
+    .card.preparing{
+      background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(247,251,255,.98));
+      border-color:#dbeeff;
     }
 
     .top{
@@ -639,6 +693,8 @@
       .wrap{padding:16px 12px 28px}
       .hero{padding:20px 16px 18px}
       .title h1{font-size:clamp(22px,7vw,30px)}
+      .stats{grid-template-columns:1fr 1fr}
+      .stat:last-child{grid-column:1 / -1}
       .top{padding:14px}
       .avatar{width:84px;height:84px}
       .name h2{font-size:20px}
@@ -661,6 +717,12 @@
       </p>
 
       <div class="ribbon">ふわっと可愛くプロフィールをチェック</div>
+
+      <div class="stats" aria-label="プロフィール件数">
+        <div class="stat"><b id="stat-total">0</b><span>掲載中</span></div>
+        <div class="stat"><b id="stat-active">0</b><span>プロフィール公開</span></div>
+        <div class="stat"><b id="stat-preparing">0</b><span>準備中</span></div>
+      </div>
     </section>
 
     <div class="toolbar" role="region" aria-label="絞り込み">
@@ -673,13 +735,15 @@
         <label for="gen">世代</label>
         <select id="gen">
           <option value="">すべて</option>
-          <option>初代</option>
-          <option>弐代目</option>
-          <option>三代目</option>
-          <option>四代目</option>
-          <option>五代目</option>
-          <option>六代目</option>
-          <option>七代目</option>
+        </select>
+      </div>
+
+      <div class="ctrl">
+        <label for="status">状態</label>
+        <select id="status">
+          <option value="">すべて</option>
+          <option value="active">公開中</option>
+          <option value="preparing">準備中</option>
         </select>
       </div>
 
@@ -687,25 +751,14 @@
         <label for="month">誕生月</label>
         <select id="month">
           <option value="">すべて</option>
-          <option value="1">1月</option>
-          <option value="2">2月</option>
-          <option value="3">3月</option>
-          <option value="4">4月</option>
-          <option value="5">5月</option>
-          <option value="6">6月</option>
-          <option value="7">7月</option>
-          <option value="8">8月</option>
-          <option value="9">9月</option>
-          <option value="10">10月</option>
-          <option value="11">11月</option>
-          <option value="12">12月</option>
         </select>
       </div>
     </div>
 
     <div class="statusbar">
       <div id="count">0 名表示</div>
-      <div class="hint">検索・世代・誕生月で絞り込みできます</div>
+      <div class="hint">検索・世代・状態・誕生月で絞り込みできます</div>
+      <button id="reset" class="reset" type="button">条件をリセット</button>
     </div>
 
     <div id="list" class="grid" aria-live="polite"></div>
@@ -724,10 +777,20 @@
     const countEl = $('#count');
     const qEl = $('#q');
     const genEl = $('#gen');
+    const statusEl = $('#status');
     const monthEl = $('#month');
+    const resetEl = $('#reset');
+    const statTotalEl = $('#stat-total');
+    const statActiveEl = $('#stat-active');
+    const statPreparingEl = $('#stat-preparing');
+    const generationOrder = ['初代', '弐代目', '三代目', '四代目', '五代目', '六代目', '七代目'];
 
     const sortByNameJa = arr =>
-      arr.slice().sort((a, b) => (a.name || '').localeCompare(b.name || '', 'ja'));
+      arr.slice().sort((a, b) => {
+        const statusOrder = Number(isPreparing(a)) - Number(isPreparing(b));
+        if (statusOrder) return statusOrder;
+        return (a.name || '').localeCompare(b.name || '', 'ja');
+      });
 
     const matchQuery = (m, q) => {
       if (!q) return true;
@@ -744,6 +807,11 @@
     };
 
     const matchGen = (m, g) => !g || m.generation === g;
+    const matchStatus = (m, status) => !status || (isPreparing(m) ? 'preparing' : 'active') === status;
+    const generationRank = generation => {
+      const index = generationOrder.indexOf(generation);
+      return index === -1 ? Number.MAX_SAFE_INTEGER : index;
+    };
 
     const getBirthMonth = (birthday) => {
       if (!birthday) return null;
@@ -776,10 +844,39 @@
       return tg;
     }
 
+    function setOptions(select, values, formatter = value => value) {
+      const current = select.value;
+      select.innerHTML = '<option value="">すべて</option>';
+      values.forEach(value => {
+        const option = document.createElement('option');
+        option.value = String(value);
+        option.textContent = formatter(value);
+        select.appendChild(option);
+      });
+      select.value = values.map(String).includes(current) ? current : '';
+    }
+
+    function setupFilters(data) {
+      const generations = [...new Set(data.map(m => m.generation).filter(Boolean))]
+        .sort((a, b) => generationRank(a) - generationRank(b) || a.localeCompare(b, 'ja'));
+      const months = [...new Set(data.map(m => getBirthMonth(m.birthday)).filter(Boolean))]
+        .sort((a, b) => a - b);
+
+      setOptions(genEl, generations);
+      setOptions(monthEl, months, month => `${month}月`);
+    }
+
+    function updateStats(data) {
+      const preparing = data.filter(isPreparing).length;
+      statTotalEl.textContent = data.length;
+      statActiveEl.textContent = data.length - preparing;
+      statPreparingEl.textContent = preparing;
+    }
+
     function card(m) {
       const preparing = isPreparing(m);
       const el = document.createElement('article');
-      el.className = 'card';
+      el.className = preparing ? 'card preparing' : 'card';
 
       const top = document.createElement('div');
       top.className = 'top';
@@ -922,6 +1019,8 @@
         }
 
         window.DATA = data;
+        setupFilters(data);
+        updateStats(data);
         render();
       } catch (e) {
         listEl.innerHTML = `
@@ -938,6 +1037,7 @@
     function render() {
       const q = qEl.value?.trim() || '';
       const g = genEl.value;
+      const status = statusEl.value;
       const mon = monthEl.value;
       const src = Array.isArray(window.DATA) ? window.DATA : [];
 
@@ -945,6 +1045,7 @@
         src
           .filter(m => matchQuery(m, q))
           .filter(m => matchGen(m, g))
+          .filter(m => matchStatus(m, status))
           .filter(m => matchMonth(m, mon))
       );
 
@@ -966,7 +1067,16 @@
 
     qEl.addEventListener('input', render);
     genEl.addEventListener('change', render);
+    statusEl.addEventListener('change', render);
     monthEl.addEventListener('change', render);
+    resetEl.addEventListener('click', () => {
+      qEl.value = '';
+      genEl.value = '';
+      statusEl.value = '';
+      monthEl.value = '';
+      render();
+      qEl.focus();
+    });
 
     document.addEventListener('click', (e) => {
       const dlg = document.getElementById('dlg');
