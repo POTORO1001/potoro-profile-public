@@ -18,3 +18,9 @@ jobs:
 
       - name: Validate maids.json
         run: npm run validate:maids
+
+      - name: Check operation script syntax
+        run: node --check scripts/apply-maid-operation.js
+
+      - name: Dry-run preparing join operation
+        run: node scripts/apply-maid-operation.js operations/join-preparing.json --dry-run

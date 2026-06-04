@@ -1,0 +1,15 @@
+{
+  "type": "join",
+  "maid": {
+    "name": "ここに名前",
+    "birthday": "1/23",
+    "generation": "七代目",
+    "likes": [
+      "好きなもの1",
+      "好きなもの2"
+    ],
+    "favorite_food": "好きな食べ物",
+    "one_liner": "ひとことメッセージ",
+    "image": "img/example.jpg"
+  }
+}
