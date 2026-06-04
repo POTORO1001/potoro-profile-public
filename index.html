@@ -373,6 +373,12 @@
       box-shadow:0 4px 10px rgba(255,127,171,.08);
     }
 
+    .chip.preparing{
+      background:linear-gradient(90deg,#eef7ff,#f8fcff);
+      border-color:#cfe7ff;
+      color:#486e9d;
+    }
+
     .subline{
       margin-top:6px;
       font-size:13px;
@@ -727,6 +733,7 @@
       if (!q) return true;
       const hay = [
         m.name,
+        m.status === 'preparing' ? '準備中 preparing' : '',
         m.generation,
         m.birthday,
         m.one_liner,
@@ -755,6 +762,7 @@
     };
 
     const initials = name => (name || '').slice(0, 2);
+    const isPreparing = m => m.status === 'preparing';
     const safe = x => {
       const d = document.createElement('div');
       d.textContent = x ?? '';
@@ -769,6 +777,7 @@
     }
 
     function card(m) {
+      const preparing = isPreparing(m);
       const el = document.createElement('article');
       el.className = 'card';
 
@@ -796,7 +805,7 @@
 
       const name = document.createElement('div');
       name.className = 'name';
-      name.innerHTML = `<h2>${safe(m.name)}</h2><span class="chip">✦ ${safe(m.generation || '')}</span>`;
+      name.innerHTML = `<h2>${safe(m.name)}</h2><span class="chip">✦ ${safe(m.generation || '')}</span>${preparing ? '<span class="chip preparing">準備中</span>' : ''}`;
 
       const sub = document.createElement('div');
       sub.className = 'subline';
@@ -828,12 +837,12 @@
 
       const note = document.createElement('div');
       note.className = 'mini-note';
-      note.textContent = 'Tap / Click で詳細表示';
+      note.textContent = preparing ? 'プロフィール準備中' : 'Tap / Click で詳細表示';
 
       const more = document.createElement('button');
       more.className = 'more';
       more.type = 'button';
-      more.textContent = '詳細を見る';
+      more.textContent = preparing ? '準備中を見る' : '詳細を見る';
       more.addEventListener('click', () => openModal(m));
 
       foot.append(note, more);
@@ -843,6 +852,7 @@
     }
 
     function openModal(m) {
+      const preparing = isPreparing(m);
       const d = document.getElementById('dlg');
       d.innerHTML = `
         <div class="modal">
@@ -856,7 +866,7 @@
                 }
               </div>
               <div>
-                <h3>${safe(m.name)} <span class="chip">✦ ${safe(m.generation || '')}</span></h3>
+                <h3>${safe(m.name)} <span class="chip">✦ ${safe(m.generation || '')}</span>${preparing ? ' <span class="chip preparing">準備中</span>' : ''}</h3>
                 <div class="subline">🎂 誕生日：${safe(m.birthday || '—')}</div>
               </div>
             </header>

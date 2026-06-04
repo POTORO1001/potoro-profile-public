@@ -14,7 +14,12 @@ const requiredFields = [
   'image'
 ];
 
-const allowedFields = new Set(requiredFields);
+const optionalFields = [
+  'status'
+];
+
+const allowedFields = new Set([...requiredFields, ...optionalFields]);
+const allowedStatuses = new Set(['active', 'preparing']);
 
 const fail = (messages) => {
   console.error('maids.json validation failed:');
@@ -99,6 +104,10 @@ if (!Array.isArray(maids)) {
       errors.push(`${label}: duplicate name also used by entry #${names.get(maid.name)}.`);
     } else {
       names.set(maid.name, index + 1);
+    }
+
+    if ('status' in maid && !allowedStatuses.has(maid.status)) {
+      errors.push(`${label}: "status" must be active or preparing.`);
     }
 
     if (!isValidBirthday(maid.birthday)) {

@@ -90,14 +90,14 @@
   },
     {
     "name": "ちー",
+    "status": "preparing",
     "birthday": "?/?",
     "generation": "七代目",
     "likes": [
-      "??",
-      "??"
+      "準備中"
     ],
-    "favorite_food": "??",
-    "one_liner": "??",
+    "favorite_food": "準備中",
+    "one_liner": "プロフィール準備中です♡",
     "image": "img/profile preparation.png"
   },
   {
