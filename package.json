@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "validate:maids": "node scripts/validate-maids.js"
+  },
+  "devDependencies": {}
+}
