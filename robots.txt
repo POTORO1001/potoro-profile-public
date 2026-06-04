@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://potoro1001.github.io/potoro-profile-public/sitemap.xml

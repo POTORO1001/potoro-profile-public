@@ -4,6 +4,29 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>PO・TORO｜メイドプロフィール</title>
+  <meta name="description" content="concept cafe PO・TOROでお給仕するメイドさんたちのプロフィール一覧です。名前、世代、誕生月、好きなものから気になるメイドさんを探せます。" />
+  <meta name="theme-color" content="#fff7fb" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="concept cafe PO・TORO" />
+  <meta property="og:title" content="PO・TORO｜メイドプロフィール" />
+  <meta property="og:description" content="PO・TOROでお給仕するメイドさんたちのプロフィール一覧です。" />
+  <meta property="og:url" content="https://potoro1001.github.io/potoro-profile-public/" />
+  <meta property="og:image" content="https://potoro1001.github.io/potoro-profile-public/img/profile%20preparation.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://potoro1001.github.io/potoro-profile-public/" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "PO・TORO｜メイドプロフィール",
+      "url": "https://potoro1001.github.io/potoro-profile-public/",
+      "description": "concept cafe PO・TOROでお給仕するメイドさんたちのプロフィール一覧です。",
+      "publisher": {
+        "@type": "Organization",
+        "name": "concept cafe PO・TORO"
+      }
+    }
+  </script>
   <style>
     :root{
       --bg1:#fff7fb;
@@ -30,6 +53,12 @@
     }
 
     *{box-sizing:border-box}
+
+    :focus-visible{
+      outline:3px solid rgba(242,93,149,.48);
+      outline-offset:3px;
+    }
+
     html,body{
       margin:0;
       padding:0;
@@ -59,6 +88,27 @@
       max-width:var(--max);
       margin:0 auto;
       padding:24px 16px 34px;
+    }
+
+    .skip-link{
+      position:absolute;
+      left:16px;
+      top:10px;
+      z-index:10;
+      transform:translateY(-140%);
+      padding:10px 14px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid var(--ring);
+      color:var(--accent-deep);
+      font-weight:900;
+      text-decoration:none;
+      box-shadow:var(--shadow);
+      transition:transform .16s ease;
+    }
+
+    .skip-link:focus{
+      transform:translateY(0);
     }
 
     .hero{
@@ -540,7 +590,8 @@
     }
 
     .empty,
-    .errorbox{
+    .errorbox,
+    .noscript{
       background:rgba(255,255,255,.92);
       border:1px solid var(--ring);
       border-radius:22px;
@@ -551,7 +602,8 @@
     }
 
     .empty strong,
-    .errorbox strong{
+    .errorbox strong,
+    .noscript strong{
       color:var(--accent-deep);
     }
 
@@ -740,6 +792,7 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#list">プロフィール一覧へ移動</a>
   <div class="wrap">
     <section class="hero" aria-label="ページヘッダー">
       <div class="eyebrow">♡ Maid Profile Collection ♡</div>
@@ -798,6 +851,13 @@
       <button id="reset" class="reset" type="button">条件をリセット</button>
     </div>
 
+    <noscript>
+      <div class="noscript">
+        <p><strong>プロフィールの表示にはJavaScriptが必要です。</strong></p>
+        <p>ブラウザのJavaScriptを有効にしてから、もう一度ページを開いてください。</p>
+      </div>
+    </noscript>
+
     <div id="list" class="grid" aria-live="polite"></div>
 
     <footer>
@@ -821,6 +881,7 @@
     const statActiveEl = $('#stat-active');
     const statPreparingEl = $('#stat-preparing');
     const generationOrder = ['初代', '弐代目', '三代目', '四代目', '五代目', '六代目', '七代目'];
+    let lastFocusedEl = null;
 
     const sortByNameJa = arr =>
       arr.slice().sort((a, b) => {
@@ -992,6 +1053,7 @@
     function openModal(m) {
       const preparing = isPreparing(m);
       const d = document.getElementById('dlg');
+      lastFocusedEl = document.activeElement;
       d.innerHTML = `
         <div class="modal">
           <div class="modal-inner">
@@ -1037,12 +1099,13 @@
             </div>
 
             <div class="modal-actions">
-              <button type="button" class="ghost" onclick="this.closest('dialog').close()">閉じる</button>
+              <button type="button" class="ghost" data-close-modal>閉じる</button>
             </div>
           </div>
         </div>
       `;
       d.showModal();
+      $('[data-close-modal]', d)?.focus();
     }
 
     async function load() {
@@ -1122,11 +1185,19 @@
     document.addEventListener('click', (e) => {
       const dlg = document.getElementById('dlg');
       if (e.target === dlg) dlg.close();
+      if (e.target.matches('[data-close-modal]')) dlg.close();
     });
 
     document.addEventListener('keydown', (e) => {
       const dlg = document.getElementById('dlg');
       if (e.key === 'Escape' && dlg.open) dlg.close();
+    });
+
+    document.getElementById('dlg').addEventListener('close', () => {
+      if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') {
+        lastFocusedEl.focus();
+      }
+      lastFocusedEl = null;
     });
 
     load();
