@@ -18,6 +18,16 @@ const requiredMaidFields = [
   'image'
 ];
 
+const placeholderTexts = [
+  'ここに名前',
+  '好きなもの1',
+  '好きなもの2',
+  '好きな食べ物',
+  'ひとことメッセージ',
+  'img/example.jpg',
+  'ここに退店する名前'
+];
+
 const usage = () => {
   console.error('Usage: node scripts/apply-maid-operation.js operations/join.json [--dry-run]');
   console.error('       node scripts/apply-maid-operation.js operations/retire.json [--dry-run]');
@@ -39,6 +49,22 @@ const readJson = (filePath, label) => {
 
 const isNonEmptyString = value =>
   typeof value === 'string' && value.trim().length > 0;
+
+const containsPlaceholder = value => {
+  if (typeof value === 'string') {
+    return placeholderTexts.includes(value.trim());
+  }
+
+  if (Array.isArray(value)) {
+    return value.some(containsPlaceholder);
+  }
+
+  if (value && typeof value === 'object') {
+    return Object.values(value).some(containsPlaceholder);
+  }
+
+  return false;
+};
 
 const normalizeMaid = maid => {
   const normalized = {};
@@ -101,6 +127,10 @@ if (!fs.existsSync(operationPath)) {
 
 const operation = readJson(operationPath, 'operation file');
 const maids = readJson(maidsPath, 'maids.json');
+
+if (containsPlaceholder(operation)) {
+  fail('operation file still contains placeholder text. Please fill in the template before running it.');
+}
 
 if (!Array.isArray(maids)) {
   fail('maids.json root must be an array.');

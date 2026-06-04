@@ -23,4 +23,4 @@ jobs:
         run: node --check scripts/apply-maid-operation.js
 
       - name: Dry-run preparing join operation
-        run: node scripts/apply-maid-operation.js operations/join-preparing.json --dry-run
+        run: node scripts/apply-maid-operation.js operations/test-join-preparing.json --dry-run
