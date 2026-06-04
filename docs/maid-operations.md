@@ -74,7 +74,11 @@
 
 ## フォーマットを書き戻したいとき
 
-`operations/` のファイルは記入用フォーマットです。入力済みの内容を空に戻したいときは、また私に「入店フォーマットを初期状態に戻して」と頼めば戻せます。
+`operations/` のファイルは記入用フォーマットです。入力済みの内容を空に戻したいときは、次のコマンドで初期状態に戻せます。
+
+```powershell
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\reset-operation-templates.js
+```
 
 `operations/test-join-preparing.json` は自動チェック用です。普段の入店・退店作業では触らなくて大丈夫です。
 

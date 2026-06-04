@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..');
-const dataPath = path.join(root, 'maids.json');
+const dataPath = process.env.MAIDS_JSON_PATH || path.join(root, 'maids.json');
 
 const requiredFields = [
   'name',

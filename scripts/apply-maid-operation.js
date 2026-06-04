@@ -1,4 +1,5 @@
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { spawnSync } = require('child_process');
 
@@ -6,7 +7,6 @@ const root = path.resolve(__dirname, '..');
 const maidsPath = path.join(root, 'maids.json');
 const operationPath = path.resolve(root, process.argv[2] || '');
 const dryRun = process.argv.includes('--dry-run');
-const originalMaidsContent = fs.readFileSync(maidsPath, 'utf8');
 
 const requiredMaidFields = [
   'name',
@@ -86,20 +86,20 @@ const writeMaids = maids => {
   fs.writeFileSync(maidsPath, formatMaids(maids), 'utf8');
 };
 
-const restoreMaids = () => {
-  fs.writeFileSync(maidsPath, originalMaidsContent, 'utf8');
-};
-
 const validateCandidate = maids => {
-  fs.writeFileSync(maidsPath, `${JSON.stringify(maids, null, 2)}\n`, 'utf8');
+  const tempPath = path.join(os.tmpdir(), `potoro-maids-${Date.now()}-${Math.random().toString(16).slice(2)}.json`);
+  fs.writeFileSync(tempPath, formatMaids(maids), 'utf8');
+
   const result = spawnSync(process.execPath, [path.join(root, 'scripts', 'validate-maids.js')], {
     cwd: root,
-    encoding: 'utf8'
+    encoding: 'utf8',
+    env: {
+      ...process.env,
+      MAIDS_JSON_PATH: tempPath
+    }
   });
 
-  if (dryRun || result.status !== 0) {
-    restoreMaids();
-  }
+  fs.rmSync(tempPath, { force: true });
 
   if (result.stdout) process.stdout.write(result.stdout);
   if (result.stderr) process.stderr.write(result.stderr);

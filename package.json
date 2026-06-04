@@ -4,7 +4,8 @@
     "maid:list": "node scripts/list-maids.js",
     "maid:join": "node scripts/apply-maid-operation.js operations/join.json",
     "maid:join:preparing": "node scripts/apply-maid-operation.js operations/join-preparing.json",
-    "maid:retire": "node scripts/apply-maid-operation.js operations/retire.json"
+    "maid:retire": "node scripts/apply-maid-operation.js operations/retire.json",
+    "maid:templates:reset": "node scripts/reset-operation-templates.js"
   },
   "devDependencies": {}
 }
