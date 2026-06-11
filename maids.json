@@ -1,5 +1,5 @@
 [
-   {
+  {
     "name": "あかり",
     "birthday": "11/4",
     "generation": "七代目",
@@ -10,7 +10,7 @@
     "one_liner": "いっぱい会えたらうれしいな♡",
     "image": "img/akari.png"
   },
-     {
+  {
     "name": "きなぴー",
     "birthday": "11/11",
     "generation": "四代目",
@@ -21,7 +21,7 @@
     "one_liner": "いっぱい甘やかしてください♡",
     "image": "img/kinapi-.JPG"
   },
-    {
+  {
     "name": "こぐま",
     "birthday": "8/21",
     "generation": "七代目",
@@ -33,7 +33,7 @@
     "one_liner": "こぐまにくまっちゃえ〜",
     "image": "img/koguma.jpg"
   },
-   {
+  {
     "name": "しいな",
     "birthday": "8/16",
     "generation": "七代目",
@@ -62,7 +62,7 @@
     "one_liner": "楽しいお話たくさんしようね♡待ってます",
     "image": "img/shigure.jpg"
   },
-    {
+  {
     "name": "せな",
     "birthday": "3/25",
     "generation": "七代目",
@@ -88,7 +88,7 @@
     "one_liner": "ソフィアと過ごす時間は、日々の日常を忘れられる小さなご褒美。お帰り待ってます",
     "image": "img/sofia.JPG"
   },
-    {
+  {
     "name": "ちー",
     "birthday": "11/2",
     "generation": "七代目",
@@ -113,7 +113,7 @@
     "one_liner": "なぎちゃんってよんでください！！",
     "image": "img/nagi.jpg"
   },
-    {
+  {
     "name": "ねむ",
     "birthday": "12/1",
     "generation": "七代目",
@@ -147,7 +147,7 @@
     "one_liner": "ママー！って呼んでね♡",
     "image": "img/mio.jpg"
   },
-   {
+  {
     "name": "みみ",
     "birthday": "11/14",
     "generation": "七代目",
@@ -158,7 +158,7 @@
     "one_liner": "いっぱい会いに来てください♡",
     "image": "img/mimi.JPG"
   },
-    {
+  {
     "name": "める",
     "birthday": "6/6",
     "generation": "七代目",
@@ -203,5 +203,17 @@
     "favorite_food": "オムライスとマカロン",
     "one_liner": "お話聞かせてください♡",
     "image": "img/rei.jpg"
+  },
+  {
+    "name": "そい",
+    "birthday": "?/?",
+    "generation": "七代目",
+    "likes": [
+      "準備中"
+    ],
+    "favorite_food": "準備中",
+    "one_liner": "プロフィール準備中です♡",
+    "image": "img/profile preparation.png",
+    "status": "preparing"
   }
 ]

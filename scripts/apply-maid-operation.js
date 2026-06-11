@@ -164,6 +164,7 @@ if (operation.type === 'join') {
   if (dryRun) {
     console.log(`[dry-run] "${maid.name}" would be added.`);
   } else {
+    writeMaids(maids);
     console.log(`Added "${maid.name}" to maids.json.`);
   }
 } else if (operation.type === 'retire') {
@@ -183,6 +184,7 @@ if (operation.type === 'join') {
   if (dryRun) {
     console.log(`[dry-run] "${removed.name}" would be removed. Image remains: ${removed.image}`);
   } else {
+    writeMaids(maids);
     console.log(`Removed "${removed.name}" from maids.json. Image remains: ${removed.image}`);
   }
 } else {
