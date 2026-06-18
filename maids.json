@@ -216,4 +216,16 @@
     "image": "img/profile preparation.png",
     "status": "preparing"
   }
+  {
+    "name": "そい",
+    "birthday": "?/?",
+    "generation": "七代目",
+    "likes": [
+      "アイドル",
+　　　"メイド"
+    ],
+    "favorite_food": "豆腐、納豆",
+    "one_liner": "そいと一緒にそい遂げようね♡",
+    "image": "img/profile preparation.png"
+  }
 ]
