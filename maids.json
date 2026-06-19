@@ -210,10 +210,11 @@
     "birthday": "?/?",
     "generation": "七代目",
     "likes": [
-      "準備中"
+      "アイドル",
+      "メイド"
     ],
-    "favorite_food": "準備中",
-    "one_liner": "プロフィール準備中です♡",
+    "favorite_food": "豆腐、納豆",
+    "one_liner": "そいと一緒に添い遂げようね♡",
     "image": "img/profile preparation.png",
     "status": "preparing"
   }
