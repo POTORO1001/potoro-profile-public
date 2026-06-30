@@ -90,18 +90,6 @@
     "image": "img/sofia.JPG"
   },
   {
-    "name": "ちー",
-    "birthday": "11/2",
-    "generation": "七代目",
-    "likes": [
-      "食べること",
-      "楽器を弾くこと"
-    ],
-    "favorite_food": "グラタン、ビビンバ、いちご",
-    "one_liner": "どんなお話でも聞きます♡",
-    "image": "img/chii.JPG"
-  },
-  {
     "name": "なぎ",
     "birthday": "9/4",
     "generation": "四代目",
