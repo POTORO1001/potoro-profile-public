@@ -219,14 +219,14 @@
   },
   {
     "name": "うさ",
-    "birthday": "?/?",
+    "birthday": "7/6",
     "generation": "七代目",
     "likes": [
-      "準備中"
+      "youtube",
+      "TikTok"
     ],
-    "favorite_food": "準備中",
-    "one_liner": "プロフィール準備中です♡",
-    "image": "img/profile preparation.png",
-    "status": "preparing"
+    "favorite_food": "焼き鳥、鴨肉",
+    "one_liner": "たくさんお話しようね♡",
+    "image": "img/usa.png",
   }
 ]
