@@ -1,0 +1,518 @@
+メイドプロフィール運用 完全手順書
+================================
+
+この説明書は、初めて作業する人向けです。
+PO・TOROポータル内のメイド紹介ページを更新するための手順を、入店から退店までまとめています。
+
+基本的に使う場所は、次のフォルダです。
+
+C:\Users\infop\OneDrive\ドキュメント\ポトロポータル\potoro-profile-public
+
+
+最初に必ずやること
+------------------
+
+1. PowerShellを開きます。
+
+2. 次のコマンドを貼り付けて、作業場所へ移動します。
+
+cd "C:\Users\infop\OneDrive\ドキュメント\ポトロポータル\potoro-profile-public"
+
+3. GitHub側の最新状態を取り込みます。
+
+git pull --rebase origin main
+
+4. 現在の掲載メンバーを確認したい場合は、次を実行します。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\list-maids.js
+
+
+よく使う確認コマンド
+--------------------
+
+maids.json が壊れていないか確認するコマンドです。
+作業後は必ず実行してください。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\validate-maids.js
+
+成功すると、次のように表示されます。
+
+maids.json validation passed (〇〇 entries).
+
+この表示が出ればOKです。
+エラーが出た場合は、git add / git commit / git push に進まないでください。
+
+
+GitHubへ反映する基本手順
+------------------------
+
+変更作業が終わり、validate-maids が成功したら、次の流れでGitHubへ反映します。
+
+git status
+git add 変更したファイル名
+git commit -m "コミットメッセージ"
+git push origin main
+
+例:
+
+git add maids.json
+git commit -m "Update maid profile"
+git push origin main
+
+push後、GitHub Pagesに反映されるまで少し時間がかかることがあります。
+
+
+1. 入店: プロフィール内容が揃っている場合
+-----------------------------------------
+
+この場合は operations/join.json を使います。
+名前、誕生日、好きなもの、好きな食べ物、ひとこと、画像まで分かっている時の手順です。
+
+1. 写真を使う場合は、画像ファイルを img フォルダへ入れます。
+
+例:
+img/usa.JPG
+
+2. 入店用フォーマットを開きます。
+
+notepad operations\join.json
+
+3. 中身を編集します。
+
+初期状態の例:
+
+{
+  "type": "join",
+  "maid": {
+    "name": "ここに名前",
+    "birthday": "1/23",
+    "generation": "七代目",
+    "likes": [
+      "好きなもの1",
+      "好きなもの2"
+    ],
+    "favorite_food": "好きな食べ物",
+    "one_liner": "ひとことメッセージ",
+    "image": "img/example.jpg"
+  }
+}
+
+入力例:
+
+{
+  "type": "join",
+  "maid": {
+    "name": "ゆあ",
+    "birthday": "8/8",
+    "generation": "七代目",
+    "likes": [
+      "アニメ",
+      "甘いもの"
+    ],
+    "favorite_food": "オムライス、プリン",
+    "one_liner": "たくさんお話しに来てください♡",
+    "image": "img/yua.JPG"
+  }
+}
+
+4. メモ帳で保存して閉じます。
+
+5. 反映前チェックをします。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\apply-maid-operation.js operations\join.json --dry-run
+
+成功例:
+
+maids.json validation passed (20 entries).
+[dry-run] "ゆあ" would be added.
+
+6. 問題なければ本反映します。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\apply-maid-operation.js operations\join.json
+
+7. validate-maids を実行します。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\validate-maids.js
+
+8. 次回使いやすいように、フォーマットを初期状態に戻します。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\reset-operation-templates.js
+
+9. GitHubへ反映します。
+
+git status
+git add maids.json operations\join.json
+git commit -m "Add maid profile"
+git push origin main
+
+
+2. 入店: プロフィール未確定で準備中掲載する場合
+------------------------------------------------
+
+この場合は operations/join-preparing.json を使います。
+名前と世代だけ先に分かっていて、プロフィール詳細は後で入れる時の手順です。
+
+1. 準備中入店用フォーマットを開きます。
+
+notepad operations\join-preparing.json
+
+2. name を変更します。
+
+初期状態:
+
+"name": "ここに名前",
+
+例:
+
+"name": "うさ",
+
+必要なら generation も変更します。
+
+"generation": "七代目",
+
+3. 保存して閉じます。
+
+4. 反映前チェックをします。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\apply-maid-operation.js operations\join-preparing.json --dry-run
+
+成功例:
+
+maids.json validation passed (20 entries).
+[dry-run] "うさ" would be added.
+
+5. 問題なければ本反映します。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\apply-maid-operation.js operations\join-preparing.json
+
+6. validate-maids を実行します。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\validate-maids.js
+
+7. 次回使いやすいように、フォーマットを初期状態に戻します。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\reset-operation-templates.js
+
+8. GitHubへ反映します。
+
+git status
+git add maids.json operations\join-preparing.json
+git commit -m "Add preparing maid profile"
+git push origin main
+
+
+3. 準備中掲載から本掲載へ変更する場合
+------------------------------------
+
+準備中で掲載していたメイドさんのプロフィール内容が揃ったら、maids.json を直接編集します。
+
+1. maids.json を開きます。
+
+notepad maids.json
+
+2. 対象メイドさんを探します。
+
+準備中の例:
+
+{
+  "name": "うさ",
+  "birthday": "?/?",
+  "generation": "七代目",
+  "likes": [
+    "準備中"
+  ],
+  "favorite_food": "準備中",
+  "one_liner": "プロフィール準備中です♡",
+  "image": "img/profile preparation.png",
+  "status": "preparing"
+}
+
+3. 本掲載内容に変更します。
+
+本掲載の例:
+
+{
+  "name": "うさ",
+  "birthday": "7/6",
+  "generation": "七代目",
+  "likes": [
+    "YouTube",
+    "TikTok"
+  ],
+  "favorite_food": "焼き鳥、鴨肉",
+  "one_liner": "たくさんお話しようね♡",
+  "image": "img/usa.JPG"
+}
+
+重要:
+"status": "preparing" の行を削除してください。
+これを消すと、ページ上の「準備中」表示が外れます。
+
+4. 写真を変更する場合は、画像を img フォルダへ入れます。
+
+例:
+img/usa.JPG
+
+そして image を変更します。
+
+"image": "img/usa.JPG"
+
+5. メモ帳で保存して閉じます。
+
+6. validate-maids を実行します。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\validate-maids.js
+
+7. GitHubへ反映します。
+
+git status
+git add maids.json
+git commit -m "Publish maid profile"
+git push origin main
+
+
+4. 本掲載済みプロフィールを変更する場合
+---------------------------------------
+
+すでに本掲載されているメイドさんのプロフィールを修正する手順です。
+誕生日、好きなもの、好きな食べ物、ひとこと、画像などを変更できます。
+
+1. maids.json を開きます。
+
+notepad maids.json
+
+2. 対象メイドさんを探します。
+
+例:
+
+{
+  "name": "うさ",
+  "birthday": "7/6",
+  "generation": "七代目",
+  "likes": [
+    "YouTube",
+    "TikTok"
+  ],
+  "favorite_food": "焼き鳥、鴨肉",
+  "one_liner": "たくさんお話しようね♡",
+  "image": "img/usa.JPG"
+}
+
+3. 変更したい項目だけ直します。
+
+ひとことだけ変更する例:
+
+"one_liner": "新しいひとことをここに入れる♡"
+
+好きなものを変更する例:
+
+"likes": [
+  "アニメ",
+  "カフェ巡り"
+],
+
+画像を変更する例:
+
+"image": "img/new-photo.JPG"
+
+4. メモ帳で保存して閉じます。
+
+5. validate-maids を実行します。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\validate-maids.js
+
+6. GitHubへ反映します。
+
+git status
+git add maids.json
+git commit -m "Update maid profile"
+git push origin main
+
+
+5. 退店する場合
+---------------
+
+退店したメイドさんを掲載一覧から外す手順です。
+画像ファイルは自動削除されません。
+
+1. 退店用フォーマットを開きます。
+
+notepad operations\retire.json
+
+2. name に退店するメイドさんの名前を入れます。
+
+初期状態:
+
+{
+  "type": "retire",
+  "name": "ここに退店する名前"
+}
+
+例:
+
+{
+  "type": "retire",
+  "name": "ゆあ"
+}
+
+3. 保存して閉じます。
+
+4. 反映前チェックをします。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\apply-maid-operation.js operations\retire.json --dry-run
+
+成功例:
+
+[dry-run] "ゆあ" would be removed. Image remains: img/yua.JPG
+
+5. 問題なければ本反映します。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\apply-maid-operation.js operations\retire.json
+
+6. validate-maids を実行します。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\validate-maids.js
+
+7. 次回使いやすいように、フォーマットを初期状態に戻します。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\reset-operation-templates.js
+
+8. GitHubへ反映します。
+
+git status
+git add maids.json operations\retire.json
+git commit -m "Remove maid profile"
+git push origin main
+
+
+JSON編集の注意
+--------------
+
+1. 最後の項目にカンマを付けない
+
+失敗する例:
+
+"image": "img/usa.JPG",
+
+正しい例:
+
+"image": "img/usa.JPG"
+
+2. 文字列は必ずダブルクォーテーションで囲む
+
+正しい例:
+
+"name": "うさ"
+
+失敗する例:
+
+"name": うさ
+
+3. likes は配列の形にする
+
+正しい例:
+
+"likes": [
+  "YouTube",
+  "TikTok"
+]
+
+4. 画像パスは img/ から始める
+
+正しい例:
+
+"image": "img/usa.JPG"
+
+5. 画像ファイル名の大文字小文字に注意する
+
+img/usa.JPG と img/usa.jpg は別物として扱われます。
+実際のファイル名に合わせてください。
+
+
+よくあるエラーと対応
+--------------------
+
+エラー:
+operation failed: "うさ" already exists in maids.json.
+
+意味:
+すでに maids.json に「うさ」さんがいます。
+同じ名前をもう一度追加しようとしている状態です。
+
+対応:
+入店追加は不要です。
+プロフィール変更をしたい場合は maids.json を編集してください。
+
+
+エラー:
+operation failed: operation file still contains placeholder text.
+
+意味:
+operations/join.json や operations/join-preparing.json に「ここに名前」などの仮文字が残っています。
+
+対応:
+メモ帳でフォーマットを開き、仮文字を実際の内容に変更してください。
+
+
+エラー:
+maids.json validation failed:
+Invalid JSON syntax
+
+意味:
+maids.json の書き方が壊れています。
+多い原因は、最後の項目に余分なカンマがあることです。
+
+対応:
+エラーに表示された line の近くを確認してください。
+
+
+エラー:
+image file not found with exact casing
+
+意味:
+maids.json に書いた画像パスと、実際の画像ファイル名が一致していません。
+
+対応:
+img フォルダのファイル名と maids.json の image を一致させてください。
+大文字小文字も合わせます。
+
+
+エラー:
+git push origin main で fetch first と出る
+
+意味:
+GitHub側に、自分のPCにまだ入っていない更新があります。
+
+対応:
+
+git pull --rebase origin main
+
+その後、もう一度 validate-maids を実行します。
+
+& 'C:\Users\infop\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe' scripts\validate-maids.js
+
+問題なければ、もう一度 push します。
+
+git push origin main
+
+
+作業後チェックリスト
+--------------------
+
+作業後は、次の4つを確認してください。
+
+1. validate-maids が成功している
+2. git status で変更内容を確認した
+3. git commit した
+4. git push origin main した
+
+最後に次を実行して、
+
+git status
+
+次のように出れば完了です。
+
+On branch main
+Your branch is up to date with 'origin/main'.
+nothing to commit, working tree clean
+
