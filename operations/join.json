@@ -1,15 +1,15 @@
 {
   "type": "join",
   "maid": {
-    "name": "ここに名前",
-    "birthday": "1/23",
+    "name": "なくる",
+    "birthday": "?/?",
     "generation": "七代目",
     "likes": [
-      "好きなもの1",
-      "好きなもの2"
+      "キティちゃん",
+      "おおきいリボン"
     ],
-    "favorite_food": "好きな食べ物",
-    "one_liner": "ひとことメッセージ",
-    "image": "img/example.jpg"
+    "favorite_food": "オムライス、チョコアイス",
+    "one_liner": "いろんなお話聞かせてくださいね♡",
+    "image": "img/nakuru.jpg"
   }
 }
