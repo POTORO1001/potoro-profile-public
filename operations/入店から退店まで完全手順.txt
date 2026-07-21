@@ -548,10 +548,21 @@ git push origin main で fetch first と出る
 
 意味:
 GitHub側に、自分のPCにまだ入っていない更新があります。
+これは「作業が全部失敗した」という意味ではありません。
+GitHub側が先に更新されているため、その更新を自分のPCへ取り込んでから、もう一度 push する必要があるという意味です。
+
+よくある例:
+GitHubの画面から画像をアップロードした
+別のPCや別の作業で先にGitHubへ反映した
+Codexが先にGitHubへpushした
 
 対応:
+次のコマンドを1行ずつ実行します。
 
 git pull --rebase origin main
+
+このとき、Fast-forward と表示された場合は、GitHub側の更新をそのまま取り込めたという意味です。
+問題ありません。
 
 その後、もう一度 validate-maids を実行します。
 
@@ -560,6 +571,59 @@ git pull --rebase origin main
 問題なければ、もう一度 push します。
 
 git push origin main
+
+git push origin main が成功すると、次のような表示になります。
+
+main -> main
+
+これが出れば、GitHubへ送信できています。
+
+注意:
+git pull --rebase origin main の途中で conflict や CONFLICT と表示された場合は、そこで止めてください。
+無理に次のコマンドへ進まず、Codexに表示内容を見せてください。
+
+
+git status の表示の見方
+-----------------------
+
+git status を実行したときに、次のような表示が出ることがあります。
+
+Your branch is up to date with 'origin/main'.
+
+意味:
+自分のPCとGitHubが同じ状態です。
+作業完了の目安です。
+
+
+Your branch is ahead of 'origin/main' by 1 commit.
+
+意味:
+自分のPCには記録済みの変更がありますが、まだGitHubへ送っていません。
+
+対応:
+次を実行します。
+
+git push origin main
+
+
+Your branch is behind 'origin/main' by 1 commit.
+
+意味:
+GitHub側に、自分のPCへまだ入っていない更新があります。
+
+対応:
+次を実行します。
+
+git pull --rebase origin main
+
+その後、validate-maids を実行して、問題なければ作業を続けます。
+
+
+nothing to commit, working tree clean
+
+意味:
+未保存のGit変更はありません。
+ただし、push が済んでいるかどうかは、上の ahead / behind / up to date の表示も一緒に確認してください。
 
 
 作業後チェックリスト
