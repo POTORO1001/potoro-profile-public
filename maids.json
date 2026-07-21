@@ -200,5 +200,17 @@
     "favorite_food": "焼き鳥、鴨肉",
     "one_liner": "たくさんお話しようね♡",
     "image": "img/usa.JPG"
+  },
+  {
+    "name": "なくる",
+    "birthday": "?/?",
+    "generation": "七代目",
+    "likes": [
+      "キティちゃん",
+      "おおきいリボン"
+    ],
+    "favorite_food": "オムライス、チョコアイス",
+    "one_liner": "いろんなお話聞かせてくださいね♡",
+    "image": "img/nakuru.JPG"
   }
 ]
