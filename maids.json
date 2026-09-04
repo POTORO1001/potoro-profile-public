@@ -225,5 +225,17 @@
     "one_liner": "プロフィール準備中です♡",
     "image": "img/profile preparation.png",
     "status": "preparing"
+  },
+  {
+    "name": "じゅら",
+    "birthday": "?/?",
+    "generation": "七代目",
+    "likes": [
+      "準備中"
+    ],
+    "favorite_food": "準備中",
+    "one_liner": "プロフィール準備中です♡",
+    "image": "img/profile preparation.png",
+    "status": "preparing"
   }
 ]
