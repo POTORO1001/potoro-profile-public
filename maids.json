@@ -213,5 +213,17 @@
     "favorite_food": "オムライス、チョコアイス",
     "one_liner": "いろんなお話聞かせてくださいね♡",
     "image": "img/nakuru.JPG"
+  },
+  {
+    "name": "くろえ",
+    "birthday": "?/?",
+    "generation": "七代目",
+    "likes": [
+      "準備中"
+    ],
+    "favorite_food": "準備中",
+    "one_liner": "プロフィール準備中です♡",
+    "image": "img/profile preparation.png",
+    "status": "preparing"
   }
 ]
