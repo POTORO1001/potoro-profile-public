@@ -5,6 +5,7 @@ const root = path.resolve(__dirname, '..');
 const dataPath = process.env.MAIDS_JSON_PATH || path.join(root, 'maids.json');
 
 const requiredFields = [
+  'id',
   'name',
   'birthday',
   'generation',
@@ -77,6 +78,7 @@ if (!Array.isArray(maids)) {
   errors.push('Root value must be an array.');
 } else {
   const names = new Map();
+  const ids = new Map();
 
   maids.forEach((maid, index) => {
     const label = `entry #${index + 1}${maid && maid.name ? ` (${maid.name})` : ''}`;
@@ -104,6 +106,14 @@ if (!Array.isArray(maids)) {
       errors.push(`${label}: duplicate name also used by entry #${names.get(maid.name)}.`);
     } else {
       names.set(maid.name, index + 1);
+    }
+
+    if (!isNonEmptyString(maid.id) || !/^maid-\d{3,}$/.test(maid.id)) {
+      errors.push(`${label}: "id" must use the stable format maid-001.`);
+    } else if (ids.has(maid.id)) {
+      errors.push(`${label}: duplicate id also used by entry #${ids.get(maid.id)}.`);
+    } else {
+      ids.set(maid.id, index + 1);
     }
 
     if ('status' in maid && !allowedStatuses.has(maid.status)) {

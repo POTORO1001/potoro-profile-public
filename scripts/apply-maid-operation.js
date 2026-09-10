@@ -9,6 +9,7 @@ const operationPath = path.resolve(root, process.argv[2] || '');
 const dryRun = process.argv.includes('--dry-run');
 
 const requiredMaidFields = [
+  'id',
   'name',
   'birthday',
   'generation',
@@ -68,6 +69,8 @@ const containsPlaceholder = value => {
 
 const normalizeMaid = maid => {
   const normalized = {};
+
+  normalized.id = maid.id;
 
   for (const field of requiredMaidFields) {
     normalized[field] = maid[field];
@@ -143,7 +146,7 @@ if (operation.type === 'join') {
     fail('"maid" must be an object for join operations.');
   }
 
-  for (const field of requiredMaidFields) {
+  for (const field of requiredMaidFields.slice(1)) {
     if (!(field in maid)) {
       fail(`join maid is missing "${field}".`);
     }
@@ -152,6 +155,8 @@ if (operation.type === 'join') {
   if (!isNonEmptyString(maid.name)) {
     fail('join maid "name" must be a non-empty string.');
   }
+
+  maid.id = `maid-${String((maids.reduce((max, current) => Math.max(max, Number(String(current.id ?? '').replace(/^maid-/, '')) || 0), 0) + 1)).padStart(3, '0')}`;
 
   if (maids.some(current => current.name === maid.name)) {
     fail(`"${maid.name}" already exists in maids.json.`);

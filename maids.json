@@ -9,7 +9,8 @@
     ],
     "favorite_food": "いちご",
     "one_liner": "笑顔とやさしい時間をお届け♡",
-    "image": "img/akari.png"
+    "image": "img/akari.png",
+    "id": "maid-001"
   },
   {
     "name": "きなぴー",
@@ -20,7 +21,8 @@
     ],
     "favorite_food": "おすし",
     "one_liner": "いっぱい甘やかしてください♡",
-    "image": "img/kinapi-.JPG"
+    "image": "img/kinapi-.JPG",
+    "id": "maid-002"
   },
   {
     "name": "こぐま",
@@ -32,7 +34,8 @@
     ],
     "favorite_food": "白米、くるみ",
     "one_liner": "こぐまにくまっちゃえ〜",
-    "image": "img/koguma.jpg"
+    "image": "img/koguma.jpg",
+    "id": "maid-003"
   },
   {
     "name": "しいな",
@@ -45,7 +48,8 @@
     ],
     "favorite_food": "ホワイトチョコ、チーズ、サーモン",
     "one_liner": "しいなに会いに来てくれたらうれしいな♡",
-    "image": "img/shiina.png"
+    "image": "img/shiina.png",
+    "id": "maid-004"
   },
   {
     "name": "しぐれ",
@@ -58,7 +62,8 @@
     ],
     "favorite_food": "ダブチ、コーラ、プリングルスのサワークリームオニオン",
     "one_liner": "しぐれとほっと一息つきませんか？🍵待ってます♡",
-    "image": "img/shigure.jpg"
+    "image": "img/shigure.jpg",
+    "id": "maid-005"
   },
   {
     "name": "せな",
@@ -70,7 +75,8 @@
     ],
     "favorite_food": "山芋、おくら",
     "one_liner": "たくさんお話しましょう♡",
-    "image": "img/sena.JPG"
+    "image": "img/sena.JPG",
+    "id": "maid-006"
   },
   {
     "name": "ソフィア",
@@ -84,7 +90,8 @@
     ],
     "favorite_food": "焼きそば、アップルパイ、抹茶",
     "one_liner": "ソフィアと過ごす時間は、日々の日常を忘れられる小さなご褒美。お帰り待ってます",
-    "image": "img/sofia.JPG"
+    "image": "img/sofia.JPG",
+    "id": "maid-007"
   },
   {
     "name": "なぎ",
@@ -97,7 +104,8 @@
     ],
     "favorite_food": "とまと以外",
     "one_liner": "なぎちゃんってよんでください！！",
-    "image": "img/nagi.jpg"
+    "image": "img/nagi.jpg",
+    "id": "maid-008"
   },
   {
     "name": "ねむ",
@@ -109,7 +117,8 @@
     ],
     "favorite_food": "うどん、冷麺、プリン",
     "one_liner": "癒されにきてください♡",
-    "image": "img/nemu.png"
+    "image": "img/nemu.png",
+    "id": "maid-009"
   },
   {
     "name": "まりん",
@@ -120,7 +129,8 @@
     ],
     "favorite_food": "ラーメン、センマイ",
     "one_liner": "美味しいお店見つけたらまりんに報告に来てください♡",
-    "image": "img/marin.jpg"
+    "image": "img/marin.jpg",
+    "id": "maid-010"
   },
   {
     "name": "みお",
@@ -131,7 +141,8 @@
     ],
     "favorite_food": "チーズ、から揚げ",
     "one_liner": "ママー！って呼んでね♡",
-    "image": "img/mio.jpg"
+    "image": "img/mio.jpg",
+    "id": "maid-011"
   },
   {
     "name": "みみ",
@@ -142,7 +153,8 @@
     ],
     "favorite_food": "オムライス、肉",
     "one_liner": "いっぱい会いに来てください♡",
-    "image": "img/mimi.JPG"
+    "image": "img/mimi.JPG",
+    "id": "maid-012"
   },
   {
     "name": "める",
@@ -153,7 +165,8 @@
     ],
     "favorite_food": "氷",
     "one_liner": "たくさん仲良くしてください♡",
-    "image": "img/meru.JPG"
+    "image": "img/meru.JPG",
+    "id": "maid-013"
   },
   {
     "name": "ゆの",
@@ -165,7 +178,8 @@
     ],
     "favorite_food": "チーズケーキ",
     "one_liner": "一緒にプリン食べよ〜！待ってるね♡",
-    "image": "img/yuno.jpg"
+    "image": "img/yuno.jpg",
+    "id": "maid-014"
   },
   {
     "name": "りあ",
@@ -177,7 +191,8 @@
     ],
     "favorite_food": "からあげ、餃子、チュロス",
     "one_liner": "たくさんお話しましょう！よろしくお願いします！",
-    "image": "img/ria.jpg"
+    "image": "img/ria.jpg",
+    "id": "maid-015"
   },
   {
     "name": "れい",
@@ -188,7 +203,8 @@
     ],
     "favorite_food": "オムライスとマカロン",
     "one_liner": "お話聞かせてください♡",
-    "image": "img/rei.jpg"
+    "image": "img/rei.jpg",
+    "id": "maid-016"
   },
   {
     "name": "うさ",
@@ -200,7 +216,8 @@
     ],
     "favorite_food": "焼き鳥、鴨肉",
     "one_liner": "たくさんお話しようね♡",
-    "image": "img/usa.JPG"
+    "image": "img/usa.JPG",
+    "id": "maid-017"
   },
   {
     "name": "なくる",
@@ -212,7 +229,8 @@
     ],
     "favorite_food": "オムライス、チョコアイス",
     "one_liner": "いろんなお話聞かせてくださいね♡",
-    "image": "img/nakuru.JPG"
+    "image": "img/nakuru.JPG",
+    "id": "maid-018"
   },
   {
     "name": "くろえ",
@@ -224,7 +242,8 @@
     "favorite_food": "準備中",
     "one_liner": "プロフィール準備中です♡",
     "image": "img/profile preparation.png",
-    "status": "preparing"
+    "status": "preparing",
+    "id": "maid-019"
   },
   {
     "name": "じゅら",
@@ -236,6 +255,7 @@
     "favorite_food": "準備中",
     "one_liner": "プロフィール準備中です♡",
     "image": "img/profile preparation.png",
-    "status": "preparing"
+    "status": "preparing",
+    "id": "maid-020"
   }
 ]
