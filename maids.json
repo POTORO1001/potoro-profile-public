@@ -221,15 +221,14 @@
   },
   {
     "name": "くろえ",
-    "birthday": "?/?",
+    "birthday": "2/14",
     "generation": "七代目",
     "likes": [
-      "準備中"
+      "FPS"
     ],
-    "favorite_food": "準備中",
-    "one_liner": "プロフィール準備中です♡",
-    "image": "img/profile preparation.png",
-    "status": "preparing",
+    "favorite_food": "お刺身、ステーキ",
+    "one_liner": "疲れたあなたに♡をプレゼント♡",
+    "image": "img/kuroe.jpg",
     "id": "maid-019"
   },
   {
@@ -261,14 +260,13 @@
   {
     "id": "maid-022",
     "name": "るな",
-    "birthday": "?/?",
+    "birthday": "10/5",
     "generation": "七代目",
     "likes": [
-      "準備中"
+      "タップダンス"
     ],
-    "favorite_food": "準備中",
-    "one_liner": "プロフィール準備中です♡",
-    "image": "img/profile preparation.png",
-    "status": "preparing"
+    "favorite_food": "麻辣湯(カップ麺)",
+    "one_liner": "月のいざないに身をゆだね…",
+    "image": "img/runa.jpeg",
   }
 ]
