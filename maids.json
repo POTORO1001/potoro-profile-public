@@ -206,15 +206,15 @@
   },
   {
     "name": "じゅら",
-    "birthday": "?/?",
+    "birthday": "2/7",
     "generation": "七代目",
     "likes": [
-      "準備中"
+      "音楽",
+　　　"ダンス"
     ],
-    "favorite_food": "準備中",
-    "one_liner": "プロフィール準備中です♡",
-    "image": "img/profile preparation.png",
-    "status": "preparing",
+    "favorite_food": "ハンバーグ、パンケーキ",
+    "one_liner": "全力で元気届けます！",
+    "image": "img/jura.jpg",
     "id": "maid-020"
   },
   {
