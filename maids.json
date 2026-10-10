@@ -5,7 +5,7 @@
     "generation": "七代目",
     "likes": [
       "あざらし",
-"イーブイ",
+      "イーブイ",
       "プリキュア"
     ],
     "favorite_food": "いちご、ポテト",
@@ -242,5 +242,18 @@
     "favorite_food": "麻辣湯(カップ麺)",
     "one_liner": "月のいざないに身をゆだね…",
     "image": "img/runa.jpeg"
+  },
+  {
+    "id": "maid-023",
+    "name": "まどか",
+    "birthday": "?/?",
+    "generation": "七代目",
+    "likes": [
+      "準備中"
+    ],
+    "favorite_food": "準備中",
+    "one_liner": "プロフィール準備中です♡",
+    "image": "img/profile preparation.png",
+    "status": "preparing"
   }
 ]
