@@ -232,18 +232,6 @@
     "status": "preparing"
   },
   {
-    "id": "maid-022",
-    "name": "るな",
-    "birthday": "10/5",
-    "generation": "七代目",
-    "likes": [
-      "タップダンス"
-    ],
-    "favorite_food": "麻辣湯(カップ麺)",
-    "one_liner": "月のいざないに身をゆだね…",
-    "image": "img/runa.jpeg"
-  },
-  {
     "id": "maid-023",
     "name": "まどか",
     "birthday": "12/12",
