@@ -243,17 +243,5 @@
     "favorite_food": "いちご、チョコ",
     "one_liner": "会いに来てくれたらうれしいです♡私とあなたで作るメイドライフ♡",
     "image": "img/madoka.JPEG"
-  },
-  {
-    "id": "maid-024",
-    "name": "りり",
-    "birthday": "3/4",
-    "generation": "八代目",
-    "likes": [
-      "お洋服"
-    ],
-    "favorite_food": "オムライス",
-    "one_liner": "りりに会いに来てね♡",
-    "image": "img/riri.JPG"
   }
 ]
